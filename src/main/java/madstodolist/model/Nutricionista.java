@@ -1,21 +1,35 @@
 package madstodolist.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "nutricionistas")
-public class Nutricionista extends Persona implements Serializable {
-    @Id
-    private Long id;
+@PrimaryKeyJoinColumn(name="id_persona")
+@DiscriminatorValue(value = "Nutricionista")
+public class Nutricionista extends Persona {
 
-    public void setId(Long id) {
-        this.id = id;
+    @OneToMany(mappedBy = "nutricionista")
+    private ArrayList<Usuario> pacientes;
+
+    @Column(name="mensajes", unique = true, nullable = false)
+    private String nombre;
+
+    //Constructores
+
+    public Nutricionista(int id, String nombre, String contraseña, String correo, ArrayList<Usuario> pacientes) {
+        super(id, nombre, contraseña, correo);
+        this.pacientes = pacientes;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Nutricionista() {}
+
+
+    //Getters & Setters
+
+
+    public ArrayList<Usuario> getPacientes() {return pacientes;}
+
+    public void setPacientes(ArrayList<Usuario> pacientes) {this.pacientes = pacientes;}
 }
