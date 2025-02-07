@@ -1,119 +1,66 @@
 package madstodolist.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
+@PrimaryKeyJoinColumn(name="id_persona")
+@DiscriminatorValue(value = "USUARIO")
 public class Usuario extends Persona implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @Column(name = "peso", nullable = false)
+    private float peso;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull
-    private String email;
-    private String nombre;
-    private String password;
-    @Column(name = "fecha_nacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    @Column(name = "edad", nullable = false)
+    private int edad;
 
-    // La relación es lazy por defecto,
-    // es necesario acceder a la lista de tareas para que se carguen
-    @OneToMany(mappedBy = "usuario")
-    Set<Tarea> tareas = new HashSet<>();
+    @Column(name = "sexo", nullable = false)
+    private String sexo;
 
-    // Constructor vacío necesario para JPA/Hibernate.
-    // No debe usarse desde la aplicación.
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Dieta> dietas = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "nutricionista_id", nullable = false)
+    private Nutricionista nutricionista;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Mensaje> mensajes = new HashSet<>();
+
+    //Constructores
+
+    public Usuario(int id, String nombre, String contraseña, String correo, float peso, int edad, String sexo, Set<Dieta> dietas, Nutricionista nutricionista, Set<Mensaje> mensajes) {
+        super(id, nombre, contraseña, correo);
+        this.peso = peso;
+        this.edad = edad;
+        this.sexo = sexo;
+        this.dietas = dietas;
+        this.nutricionista = nutricionista;
+        this.mensajes = mensajes;
+    }
+
     public Usuario() {}
 
-    // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
-    public Usuario(String email) {
-        this.email = email;
-    }
+    //Getters & Setters
 
-    // Getters y setters atributos básicos
+    public float getPeso() { return peso; }
+    public void setPeso(float peso) { this.peso = peso; }
 
-    public Long getId() {
-        return id;
-    }
+    public int getEdad() { return edad; }
+    public void setEdad(int edad) { this.edad = edad; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getSexo() { return sexo; }
+    public void setSexo(String sexo) { this.sexo = sexo; }
 
-    public String getEmail() {
-        return email;
-    }
+    public Set<Dieta> getDietas() { return dietas; }
+    public void setDietas(Set<Dieta> dietas) { this.dietas = dietas; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public Nutricionista getNutricionista() { return nutricionista; }
+    public void setNutricionista(Nutricionista nutricionista) { this.nutricionista = nutricionista; }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    // Getters y setters de la relación
-
-    public Set<Tarea> getTareas() {
-        return tareas;
-    }
-
-    // Método helper para añadir una tarea a la lista y establecer la relación inversa
-    public void addTarea(Tarea tarea) {
-        // Si la tarea ya está en la lista, no la añadimos
-        if (tareas.contains(tarea)) return;
-        // Añadimos la tarea a la lista
-        tareas.add(tarea);
-        // Establecemos la relación inversa del usuario en la tarea
-        if (tarea.getUsuario() != this) {
-            tarea.setUsuario(this);
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        if (id != null && usuario.id != null)
-            // Si tenemos los ID, comparamos por ID
-            return Objects.equals(id, usuario.id);
-        // si no comparamos por campos obligatorios
-        return email.equals(usuario.email);
-    }
-
-    @Override
-    public int hashCode() {
-        // Generamos un hash basado en los campos obligatorios
-        return Objects.hash(email);
-    }
+    public Set<Mensaje> getMensajes() { return mensajes; }
+    public void setMensajes(Set<Mensaje> mensajes) { this.mensajes = mensajes; }
 }

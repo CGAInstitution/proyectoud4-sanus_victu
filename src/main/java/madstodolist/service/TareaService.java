@@ -1,6 +1,5 @@
 package madstodolist.service;
 
-import madstodolist.model.Tarea;
 import madstodolist.repository.TareaRepository;
 import madstodolist.model.Usuario;
 import madstodolist.repository.UsuarioRepository;
