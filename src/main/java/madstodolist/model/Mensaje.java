@@ -16,15 +16,20 @@ public class Mensaje implements Serializable {
     private String texto;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "remitente_id", nullable = false)
+    private Persona remitente;
+
+    @ManyToOne
+    @JoinColumn(name = "destinatario_id", nullable = false)
+    private Persona destinatario;
 
     //Constructores
 
-    public Mensaje(int id_mensaje, String texto, Usuario usuario) {
+    public Mensaje(int id_mensaje, String texto, Persona remitente, Persona destinatario) {
         this.id_mensaje = id_mensaje;
         this.texto = texto;
-        this.usuario = usuario;
+        this.remitente = remitente;
+        this.destinatario = destinatario;
     }
 
     public Mensaje() {}
@@ -37,6 +42,9 @@ public class Mensaje implements Serializable {
     public String getTexto() { return texto; }
     public void setTexto(String texto) { this.texto = texto; }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public Persona getRemitente() { return remitente; }
+    public void setRemitente(Persona remitente) { this.remitente = remitente; }
+
+    public Persona getDestinatario() { return destinatario; }
+    public void setDestinatario(Persona destinatario) { this.destinatario = destinatario; }
 }
