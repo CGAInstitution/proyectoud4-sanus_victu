@@ -2,6 +2,8 @@ package madstodolist.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "dietas")
@@ -19,8 +21,10 @@ public class Dieta implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    //Constructores
+    @OneToMany(mappedBy = "dieta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Dieta_Producto> dietaProductos = new HashSet<>();
 
+    // Constructores
     public Dieta(int id_dieta, boolean favotiro, Usuario usuario) {
         this.id_dieta = id_dieta;
         this.favotiro = favotiro;
@@ -29,8 +33,7 @@ public class Dieta implements Serializable {
 
     public Dieta() {}
 
-    //Getters & Setters
-
+    // Getters & Setters
     public int getId_dieta() { return id_dieta; }
     public void setId_dieta(int id_dieta) { this.id_dieta = id_dieta; }
 
@@ -39,4 +42,7 @@ public class Dieta implements Serializable {
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
+    public Set<Dieta_Producto> getDietaProductos() { return dietaProductos; }
+    public void setDietaProductos(Set<Dieta_Producto> dietaProductos) { this.dietaProductos = dietaProductos; }
 }

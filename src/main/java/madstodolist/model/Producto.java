@@ -1,10 +1,9 @@
 package madstodolist.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "productos")
@@ -34,12 +33,13 @@ public class Producto implements Serializable {
     @Column(name = "sal", nullable = false)
     private float sal;
 
-    @Column(name = "fecha" , nullable = true)
+    @Column(name = "fecha", nullable = true)
     private String fecha;
 
-    //Constructores
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Producto_Supermercado> productoSupermercados = new HashSet<>();
 
-
+    // Constructores
     public Producto(String id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
         this.id = id;
         this.nombre = nombre;
@@ -52,41 +52,33 @@ public class Producto implements Serializable {
         this.fecha = fecha;
     }
 
-
     public Producto() {}
 
-    //Getters & Setters
+    // Getters & Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getId() {return id;}
+    public int getValor_energetico() { return valor_energetico; }
+    public void setValor_energetico(int valor_energetico) { this.valor_energetico = valor_energetico; }
 
-    public void setId(String id) {this.id = id;}
+    public float getHidratos_carbono() { return hidratos_carbono; }
+    public void setHidratos_carbono(float hidratos_carbono) { this.hidratos_carbono = hidratos_carbono; }
 
-    public String getNombre() {return nombre;}
+    public float getGrasas() { return grasas; }
+    public void setGrasas(float grasas) { this.grasas = grasas; }
 
-    public void setNombre(String nombre) {this.nombre = nombre;}
+    public float getFibra_alimentaria() { return fibra_alimentaria; }
+    public void setFibra_alimentaria(float fibra_alimentaria) { this.fibra_alimentaria = fibra_alimentaria; }
 
-    public int getValor_energetico() {return valor_energetico;}
+    public float getProteinas() { return proteinas; }
+    public void setProteinas(float proteinas) { this.proteinas = proteinas; }
 
-    public void setValor_energetico(int valor_energetico) {this.valor_energetico = valor_energetico;}
+    public float getSal() { return sal; }
+    public void setSal(float sal) { this.sal = sal; }
 
-    public float getHidratos_carbono() {return hidratos_carbono;}
-
-    public void setHidratos_carbono(float hidratos_carbono) {this.hidratos_carbono = hidratos_carbono;}
-
-    public float getGrasas() {return grasas;}
-
-    public void setGrasas(float grasas) {this.grasas = grasas;}
-
-    public float getFibra_alimentaria() {return fibra_alimentaria;}
-
-    public void setFibra_alimentaria(float fibra_alimentaria) {this.fibra_alimentaria = fibra_alimentaria;}
-
-    public float getProteinas() {return proteinas;}
-
-    public void setProteinas(float proteinas) {this.proteinas = proteinas;}
-
-    public float getSal() {return sal;}
-
-    public void setSal(float sal) {this.sal = sal;}
+    public Set<Producto_Supermercado> getProductoSupermercados() { return productoSupermercados; }
+    public void setProductoSupermercados(Set<Producto_Supermercado> productoSupermercados) { this.productoSupermercados = productoSupermercados; }
 }

@@ -3,6 +3,7 @@ package madstodolist.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Table(name = "nutricionistas")
@@ -18,9 +19,11 @@ public class Nutricionista extends Persona {
 
     //Constructores
 
-    public Nutricionista(int id, String nombre, String contraseña, String correo, ArrayList<Usuario> pacientes) {
-        super(id, nombre, contraseña, correo);
+
+    public Nutricionista(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos, ArrayList<Usuario> pacientes, String nombre1) {
+        super(id, nombre, contraseña, correo, mensajesEnviados, mensajesRecibidos);
         this.pacientes = pacientes;
+        this.nombre = nombre1;
     }
 
     public Nutricionista() {}

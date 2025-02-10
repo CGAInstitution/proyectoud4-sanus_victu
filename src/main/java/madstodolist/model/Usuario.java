@@ -27,19 +27,15 @@ public class Usuario extends Persona implements Serializable {
     @JoinColumn(name = "nutricionista_id", nullable = false)
     private Nutricionista nutricionista;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Mensaje> mensajes = new HashSet<>();
-
     //Constructores
 
-    public Usuario(int id, String nombre, String contraseña, String correo, float peso, int edad, String sexo, Set<Dieta> dietas, Nutricionista nutricionista, Set<Mensaje> mensajes) {
-        super(id, nombre, contraseña, correo);
+    public Usuario(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos, float peso, int edad, Set<Dieta> dietas, String sexo, Nutricionista nutricionista) {
+        super(id, nombre, contraseña, correo, mensajesEnviados, mensajesRecibidos);
         this.peso = peso;
         this.edad = edad;
-        this.sexo = sexo;
         this.dietas = dietas;
+        this.sexo = sexo;
         this.nutricionista = nutricionista;
-        this.mensajes = mensajes;
     }
 
     public Usuario() {}
@@ -61,6 +57,4 @@ public class Usuario extends Persona implements Serializable {
     public Nutricionista getNutricionista() { return nutricionista; }
     public void setNutricionista(Nutricionista nutricionista) { this.nutricionista = nutricionista; }
 
-    public Set<Mensaje> getMensajes() { return mensajes; }
-    public void setMensajes(Set<Mensaje> mensajes) { this.mensajes = mensajes; }
 }
