@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UsuarioTest {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private personaRepository personaRepository;
 
     //
     // Tests modelo Usuario en memoria, sin la conexión con la BD
@@ -112,7 +112,7 @@ public class UsuarioTest {
         // WHEN
         // se guarda en la base de datos
 
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
 
         // THEN
         // se actualiza el identificador del usuario,
@@ -122,7 +122,7 @@ public class UsuarioTest {
         // y con ese identificador se recupera de la base de datos el usuario con
         // los valores correctos de las propiedades.
 
-        Usuario usuarioBD = usuarioRepository.findById(usuario.getId()).orElse(null);
+        Usuario usuarioBD = personaRepository.findById(usuario.getId()).orElse(null);
         assertThat(usuarioBD.getEmail()).isEqualTo("juan.gutierrez@gmail.com");
         assertThat(usuarioBD.getNombre()).isEqualTo("Juan Gutiérrez");
         assertThat(usuarioBD.getPassword()).isEqualTo("12345678");
@@ -136,13 +136,13 @@ public class UsuarioTest {
         // Un usuario en la BD
         Usuario usuario = new Usuario("user@ua");
         usuario.setNombre("Usuario Ejemplo");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
         Long usuarioId = usuario.getId();
 
         // WHEN
         // se recupera de la base de datos un usuario por su identificador,
 
-        Usuario usuarioBD = usuarioRepository.findById(usuarioId).orElse(null);
+        Usuario usuarioBD = personaRepository.findById(usuarioId).orElse(null);
 
         // THEN
         // se obtiene el usuario correcto y se recuperan sus propiedades.
@@ -159,12 +159,12 @@ public class UsuarioTest {
         // Un usuario en la BD
         Usuario usuario = new Usuario("user@ua");
         usuario.setNombre("Usuario Ejemplo");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
 
         // WHEN
         // buscamos al usuario por su correo electrónico,
 
-        Usuario usuarioBD = usuarioRepository.findByEmail("user@ua").orElse(null);
+        Usuario usuarioBD = personaRepository.findByCorreo("user@ua").orElse(null);
 
         // THEN
         // se obtiene el usuario correcto.

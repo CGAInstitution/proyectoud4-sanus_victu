@@ -3,8 +3,8 @@ package madstodolist.controller;
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.LoginData;
 import madstodolist.dto.RegistroData;
-import madstodolist.dto.UsuarioData;
-import madstodolist.service.UsuarioService;
+import madstodolist.dto.PersonaData;
+import madstodolist.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    UsuarioService usuarioService;
+    PersonaService personaService;
 
     @Autowired
     ManagerUserSession managerUserSession;
@@ -40,18 +40,18 @@ public class LoginController {
     public String loginSubmit(@ModelAttribute LoginData loginData, Model model, HttpSession session) {
 
         // Llamada al servicio para comprobar si el login es correcto
-        UsuarioService.LoginStatus loginStatus = usuarioService.login(loginData.geteMail(), loginData.getPassword());
+        PersonaService.LoginStatus loginStatus = personaService.login(loginData.geteMail(), loginData.getPassword());
 
-        if (loginStatus == UsuarioService.LoginStatus.LOGIN_OK) {
-            UsuarioData usuario = usuarioService.findByEmail(loginData.geteMail());
+        if (loginStatus == PersonaService.LoginStatus.LOGIN_OK) {
+            PersonaData usuario = personaService.findByEmail(loginData.geteMail());
 
-            managerUserSession.logearUsuario(usuario.getId());
+            managerUserSession.logearPersona(usuario.getId());
 
             return "redirect:/usuarios/" + usuario.getId() + "/tareas";
-        } else if (loginStatus == UsuarioService.LoginStatus.USER_NOT_FOUND) {
+        } else if (loginStatus == PersonaService.LoginStatus.USER_NOT_FOUND) {
             model.addAttribute("error", "No existe usuario");
             return "formLogin";
-        } else if (loginStatus == UsuarioService.LoginStatus.ERROR_PASSWORD) {
+        } else if (loginStatus == PersonaService.LoginStatus.ERROR_PASSWORD) {
             model.addAttribute("error", "Contraseña incorrecta");
             return "formLogin";
         }
@@ -71,19 +71,18 @@ public class LoginController {
             return "formRegistro";
         }
 
-        if (usuarioService.findByEmail(registroData.getEmail()) != null) {
+        if (personaService.findByEmail(registroData.getCorreo()) != null) {
             model.addAttribute("registroData", registroData);
-            model.addAttribute("error", "El usuario " + registroData.getEmail() + " ya existe");
+            model.addAttribute("error", "El personaData " + registroData.getCorreo() + " ya existe");
             return "formRegistro";
         }
 
-        UsuarioData usuario = new UsuarioData();
-        usuario.setEmail(registroData.getEmail());
-        usuario.setPassword(registroData.getPassword());
-        usuario.setFechaNacimiento(registroData.getFechaNacimiento());
-        usuario.setNombre(registroData.getNombre());
+        PersonaData personaData = new PersonaData();
+        personaData.setCorreo(registroData.getCorreo());
+        personaData.setContraseña(registroData.getContraseña());
+        personaData.setNombre(registroData.getNombre());
 
-        usuarioService.registrar(usuario);
+        personaService.registrar(personaData);
         return "redirect:/login";
    }
 
