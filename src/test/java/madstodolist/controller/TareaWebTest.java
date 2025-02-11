@@ -2,8 +2,8 @@ package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.TareaData;
-import madstodolist.dto.UsuarioData;
-import madstodolist.service.UsuarioService;
+import madstodolist.dto.PersonaData;
+import madstodolist.service.PersonaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,7 +33,7 @@ public class TareaWebTest {
     private TareaService tareaService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private PersonaService personaService;
 
     // Moqueamos el managerUserSession para poder moquear el usuario logeado
     @MockBean
@@ -44,10 +44,10 @@ public class TareaWebTest {
 
     Map<String, Long> addUsuarioTareasBD() {
         // Añadimos un usuario a la base de datos
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("user@ua");
         usuario.setPassword("123");
-        usuario = usuarioService.registrar(usuario);
+        usuario = personaService.registrar(usuario);
 
         // Y añadimos dos tareas asociadas a ese usuario
         TareaData tarea1 = tareaService.nuevaTareaUsuario(usuario.getId(), "Lavar coche");

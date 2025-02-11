@@ -1,12 +1,9 @@
 package madstodolist.service;
 
-import madstodolist.model.Usuario;
-import madstodolist.repository.UsuarioRepository;
+import madstodolist.repository.personaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 @Service
 // Se ejecuta solo si el perfil activo es 'dev'
@@ -14,7 +11,7 @@ import javax.annotation.PostConstruct;
 public class InitDbService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private personaRepository personaRepository;
 
     // Se ejecuta tras crear el contexto de la aplicación
     // para inicializar la base de datos
