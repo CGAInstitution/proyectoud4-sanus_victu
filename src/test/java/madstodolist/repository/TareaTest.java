@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TareaTest {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    personaRepository personaRepository;
 
     @Autowired
     TareaRepository tareaRepository;
@@ -120,7 +120,7 @@ public class TareaTest {
         // Un usuario en la base de datos.
 
         Usuario usuario = new Usuario("user@ua");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
 
         Tarea tarea = new Tarea(usuario, "Práctica 1 de MADS");
 
@@ -168,7 +168,7 @@ public class TareaTest {
         // GIVEN
         // Un usuario con 2 tareas en la base de datos
         Usuario usuario = new Usuario("user@ua");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
         Long usuarioId = usuario.getId();
 
         Tarea tarea1 = new Tarea(usuario, "Práctica 1 de MADS");
@@ -179,7 +179,7 @@ public class TareaTest {
         // WHEN
         // recuperamos el ususario de la base de datos,
 
-        Usuario usuarioRecuperado = usuarioRepository.findById(usuarioId).orElse(null);
+        Usuario usuarioRecuperado = personaRepository.findById(usuarioId).orElse(null);
 
         // THEN
         // su lista de tareas también se recupera, porque se ha
@@ -194,14 +194,14 @@ public class TareaTest {
         // GIVEN
         // Un usuario en la base de datos
         Usuario usuario = new Usuario("user@ua");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
         Long usuarioId = usuario.getId();
 
         // WHEN
         // Creamos una nueva tarea con el usuario recuperado de la BD
         // y la salvamos,
 
-        Usuario usuarioBD = usuarioRepository.findById(usuarioId).orElse(null);
+        Usuario usuarioBD = personaRepository.findById(usuarioId).orElse(null);
         Tarea tarea = new Tarea(usuarioBD, "Práctica 1 de MADS");
         tareaRepository.save(tarea);
         Long tareaId = tarea.getId();
@@ -214,7 +214,7 @@ public class TareaTest {
         assertThat(tarea.getUsuario()).isEqualTo(usuarioBD);
 
         // y si recuperamos el usuario se obtiene la nueva tarea
-        usuarioBD = usuarioRepository.findById(usuarioId).orElse(null);
+        usuarioBD = personaRepository.findById(usuarioId).orElse(null);
         assertThat(usuarioBD.getTareas()).contains(tareaBD);
     }
 
@@ -225,7 +225,7 @@ public class TareaTest {
         // GIVEN
         // Un usuario y una tarea en la base de datos
         Usuario usuario = new Usuario("user@ua");
-        usuarioRepository.save(usuario);
+        personaRepository.save(usuario);
         Tarea tarea = new Tarea(usuario, "Práctica 1 de MADS");
         tareaRepository.save(tarea);
 

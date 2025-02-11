@@ -1,7 +1,7 @@
 package madstodolist.controller;
 
-import madstodolist.dto.UsuarioData;
-import madstodolist.service.UsuarioService;
+import madstodolist.dto.PersonaData;
+import madstodolist.service.PersonaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,7 +30,7 @@ public class UsuarioWebTest {
     // a los métodos de usuarioService que se van a ejecutar cuando se realicen
     // las peticiones a los endpoint.
     @MockBean
-    private UsuarioService usuarioService;
+    private PersonaService personaService;
 
     @Test
     public void servicioLoginUsuarioOK() throws Exception {
@@ -39,13 +39,13 @@ public class UsuarioWebTest {
         // devuelva un LOGIN_OK y la llamada a usuarioServicie.findByEmail
         // para que devuelva un usuario determinado.
 
-        UsuarioData anaGarcia = new UsuarioData();
+        PersonaData anaGarcia = new PersonaData();
         anaGarcia.setNombre("Ana García");
         anaGarcia.setId(1L);
 
-        when(usuarioService.login("ana.garcia@gmail.com", "12345678"))
-                .thenReturn(UsuarioService.LoginStatus.LOGIN_OK);
-        when(usuarioService.findByEmail("ana.garcia@gmail.com"))
+        when(personaService.login("ana.garcia@gmail.com", "12345678"))
+                .thenReturn(PersonaService.LoginStatus.LOGIN_OK);
+        when(personaService.findByEmail("ana.garcia@gmail.com"))
                 .thenReturn(anaGarcia);
 
         // WHEN, THEN
@@ -65,8 +65,8 @@ public class UsuarioWebTest {
         // GIVEN
         // Moqueamos el método usuarioService.login para que devuelva
         // USER_NOT_FOUND
-        when(usuarioService.login("pepito.perez@gmail.com", "12345678"))
-                .thenReturn(UsuarioService.LoginStatus.USER_NOT_FOUND);
+        when(personaService.login("pepito.perez@gmail.com", "12345678"))
+                .thenReturn(PersonaService.LoginStatus.USER_NOT_FOUND);
 
         // WHEN, THEN
         // Realizamos una petición POST con los datos del usuario mockeado y
@@ -82,8 +82,8 @@ public class UsuarioWebTest {
         // GIVEN
         // Moqueamos el método usuarioService.login para que devuelva
         // ERROR_PASSWORD
-        when(usuarioService.login("ana.garcia@gmail.com", "000"))
-                .thenReturn(UsuarioService.LoginStatus.ERROR_PASSWORD);
+        when(personaService.login("ana.garcia@gmail.com", "000"))
+                .thenReturn(PersonaService.LoginStatus.ERROR_PASSWORD);
 
         // WHEN, THEN
         // Realizamos una petición POST con los datos del usuario mockeado y
