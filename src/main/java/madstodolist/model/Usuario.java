@@ -12,7 +12,7 @@ import java.util.Set;
 public class Usuario extends Persona implements Serializable {
 
     @Column(name = "peso", nullable = false)
-    private float peso;
+    private int peso;
 
     @Column(name = "edad", nullable = false)
     private int edad;
@@ -29,7 +29,7 @@ public class Usuario extends Persona implements Serializable {
 
     //Constructores
 
-    public Usuario(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos, float peso, int edad, Set<Dieta> dietas, String sexo, Nutricionista nutricionista) {
+    public Usuario(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos, int peso, int edad, Set<Dieta> dietas, String sexo, Nutricionista nutricionista) {
         super(id, nombre, contraseña, correo, mensajesEnviados, mensajesRecibidos);
         this.peso = peso;
         this.edad = edad;
@@ -42,8 +42,8 @@ public class Usuario extends Persona implements Serializable {
 
     //Getters & Setters
 
-    public float getPeso() { return peso; }
-    public void setPeso(float peso) { this.peso = peso; }
+    public int getPeso() { return peso; }
+    public void setPeso(int peso) { this.peso = peso; }
 
     public int getEdad() { return edad; }
     public void setEdad(int edad) { this.edad = edad; }

@@ -47,7 +47,7 @@ public class LoginController {
 
             managerUserSession.logearPersona(usuario.getId());
 
-            return "redirect:/usuarios/" + usuario.getId() + "/tareas";
+            return "redirect:/usuarios/" + usuario.getId() + "/inicio";
         } else if (loginStatus == PersonaService.LoginStatus.USER_NOT_FOUND) {
             model.addAttribute("error", "No existe usuario");
             return "formLogin";
