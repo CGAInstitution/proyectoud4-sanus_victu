@@ -24,7 +24,7 @@ public class Usuario extends Persona implements Serializable {
     private Set<Dieta> dietas = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "nutricionista_id", nullable = false)
+    @JoinColumn(name = "nutricionista_id", nullable = true)
     private Nutricionista nutricionista;
 
     //Constructores

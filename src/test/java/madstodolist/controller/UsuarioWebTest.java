@@ -1,6 +1,6 @@
 package madstodolist.controller;
 
-import madstodolist.dto.PersonaData;
+import madstodolist.dto.UsuarioData;
 import madstodolist.service.PersonaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class UsuarioWebTest {
         // devuelva un LOGIN_OK y la llamada a usuarioServicie.findByEmail
         // para que devuelva un usuario determinado.
 
-        PersonaData anaGarcia = new PersonaData();
+        UsuarioData anaGarcia = new UsuarioData();
         anaGarcia.setNombre("Ana García");
         anaGarcia.setId(1L);
 

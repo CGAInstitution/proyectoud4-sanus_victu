@@ -2,7 +2,7 @@ package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.TareaData;
-import madstodolist.dto.PersonaData;
+import madstodolist.dto.UsuarioData;
 import madstodolist.service.PersonaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class TareaWebTest {
 
     Map<String, Long> addUsuarioTareasBD() {
         // Añadimos un usuario a la base de datos
-        PersonaData usuario = new PersonaData();
+        UsuarioData usuario = new UsuarioData();
         usuario.setEmail("user@ua");
         usuario.setPassword("123");
         usuario = personaService.registrar(usuario);
