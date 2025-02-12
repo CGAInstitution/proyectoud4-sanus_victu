@@ -84,7 +84,7 @@ public class PersonaServiceTest {
         PersonaData usuario = new PersonaData();
         usuario.setEmail("usuario.prueba@gmail.com");
 
-        Assertions.assertThrows(UsuarioServiceException.class, () -> {
+        Assertions.assertThrows(PersonaServiceException.class, () -> {
             personaService.registrar(usuario);
         });
     }
@@ -105,7 +105,7 @@ public class PersonaServiceTest {
         usuario.setEmail("user@ua");
         usuario.setPassword("12345678");
 
-        Assertions.assertThrows(UsuarioServiceException.class, () -> {
+        Assertions.assertThrows(PersonaServiceException.class, () -> {
             personaService.registrar(usuario);
         });
     }

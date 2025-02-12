@@ -44,11 +44,11 @@ public class PersonaService {
     public PersonaData registrar(PersonaData persona1) {
         Optional<Persona> personaDB = personaRepository.findByCorreo(persona1.getCorreo());
         if (personaDB.isPresent())
-            throw new UsuarioServiceException("El usuario " + persona1.getCorreo() + " ya está registrado");
+            throw new PersonaServiceException("El usuario " + persona1.getCorreo() + " ya está registrado");
         else if (persona1.getCorreo() == null)
-            throw new UsuarioServiceException("El usuario no tiene email");
+            throw new PersonaServiceException("El usuario no tiene email");
         else if (persona1.getContraseña() == null)
-            throw new UsuarioServiceException("El usuario no tiene password");
+            throw new PersonaServiceException("El usuario no tiene password");
         else {
             Usuario usuarioNuevo = modelMapper.map(persona1, Usuario.class);
             usuarioNuevo = personaRepository.save(usuarioNuevo);
