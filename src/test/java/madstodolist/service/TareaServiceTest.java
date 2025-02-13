@@ -1,7 +1,7 @@
 package madstodolist.service;
 
 import madstodolist.dto.TareaData;
-import madstodolist.dto.PersonaData;
+import madstodolist.dto.UsuarioData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,12 +31,12 @@ public class TareaServiceTest {
     // Método para inicializar los datos de prueba en la BD
     // Devuelve un mapa con los identificadores del usuario y de la primera tarea añadida
     Map<String, Long> addUsuarioTareasBD() {
-        PersonaData usuario = new PersonaData();
+        UsuarioData usuario = new UsuarioData();
         usuario.setEmail("user@ua");
         usuario.setPassword("123");
 
         // Añadimos un usuario a la base de datos
-        PersonaData usuarioNuevo = personaService.registrar(usuario);
+        UsuarioData usuarioNuevo = personaService.registrar(usuario);
 
         // Y añadimos dos tareas asociadas a ese usuario
         TareaData tarea1 = tareaService.nuevaTareaUsuario(usuarioNuevo.getId(), "Lavar coche");

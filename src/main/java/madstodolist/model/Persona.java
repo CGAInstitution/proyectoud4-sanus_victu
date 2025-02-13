@@ -23,7 +23,7 @@ public class Persona implements Serializable {
     @Column(name = "contraseña", unique = false, nullable = false)
     private String contraseña;
 
-    @Column(name = "correo", nullable = false)
+    @Column(name = "correo", nullable = false, unique = true)
     private String correo;
 
     // Relación con mensajes
@@ -33,9 +33,10 @@ public class Persona implements Serializable {
     @OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Mensaje> mensajesRecibidos = new HashSet<>();
 
+    @Transient // No se persistirá en la base de datos
+    private String tipoPersona;
+
     // Constructores
-
-
     public Persona(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos) {
         this.id = id;
         this.nombre = nombre;
@@ -65,4 +66,9 @@ public class Persona implements Serializable {
 
     public Set<Mensaje> getMensajesRecibidos() { return mensajesRecibidos; }
     public void setMensajesRecibidos(Set<Mensaje> mensajesRecibidos) { this.mensajesRecibidos = mensajesRecibidos; }
+
+    // Método para obtener el tipo de persona
+    public String getTipoPersona() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
 }

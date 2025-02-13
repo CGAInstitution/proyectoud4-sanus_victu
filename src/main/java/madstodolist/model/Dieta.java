@@ -14,6 +14,9 @@ public class Dieta implements Serializable {
     @Column(name = "id_dieta")
     private int id_dieta;
 
+    @Column(name= "nombre_dieta", nullable = false)
+    private String nombre_dieta;
+
     @Column(name = "favotiro", nullable = false, columnDefinition = "boolean default false")
     private boolean favotiro;
 
@@ -25,10 +28,14 @@ public class Dieta implements Serializable {
     private Set<Dieta_Producto> dietaProductos = new HashSet<>();
 
     // Constructores
-    public Dieta(int id_dieta, boolean favotiro, Usuario usuario) {
+
+
+    public Dieta(int id_dieta, String nombre_dieta, boolean favotiro, Usuario usuario, Set<Dieta_Producto> dietaProductos) {
         this.id_dieta = id_dieta;
+        this.nombre_dieta = nombre_dieta;
         this.favotiro = favotiro;
         this.usuario = usuario;
+        this.dietaProductos = dietaProductos;
     }
 
     public Dieta() {}
@@ -45,4 +52,8 @@ public class Dieta implements Serializable {
 
     public Set<Dieta_Producto> getDietaProductos() { return dietaProductos; }
     public void setDietaProductos(Set<Dieta_Producto> dietaProductos) { this.dietaProductos = dietaProductos; }
+
+    public String getNombre_dieta() {return nombre_dieta;}
+    public void setNombre_dieta(String nombre_dieta) {this.nombre_dieta = nombre_dieta;}
+
 }

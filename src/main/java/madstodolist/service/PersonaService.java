@@ -1,6 +1,6 @@
 package madstodolist.service;
 
-import madstodolist.dto.PersonaData;
+import madstodolist.dto.UsuarioData;
 import madstodolist.model.Persona;
 import madstodolist.model.Usuario;
 import madstodolist.repository.personaRepository;
@@ -41,7 +41,7 @@ public class PersonaService {
     // El email y password del persona1 deben ser distinto de null
     // El email no debe estar registrado en la base de datos
     @Transactional
-    public PersonaData registrar(PersonaData persona1) {
+    public UsuarioData registrar(UsuarioData persona1) {
         Optional<Persona> personaDB = personaRepository.findByCorreo(persona1.getCorreo());
         if (personaDB.isPresent())
             throw new PersonaServiceException("El usuario " + persona1.getCorreo() + " ya está registrado");
@@ -52,25 +52,25 @@ public class PersonaService {
         else {
             Usuario usuarioNuevo = modelMapper.map(persona1, Usuario.class);
             usuarioNuevo = personaRepository.save(usuarioNuevo);
-            return modelMapper.map(usuarioNuevo, PersonaData.class);
+            return modelMapper.map(usuarioNuevo, UsuarioData.class);
         }
     }
 
     @Transactional(readOnly = true)
-    public PersonaData findByEmail(String email) {
+    public UsuarioData findByEmail(String email) {
         Persona persona = personaRepository.findByCorreo(email).orElse(null);
         if (persona == null) return null;
         else {
-            return modelMapper.map(persona, PersonaData.class);
+            return modelMapper.map(persona, UsuarioData.class);
         }
     }
 
     @Transactional(readOnly = true)
-    public PersonaData findById(int personaId) {
+    public UsuarioData findById(int personaId) {
         Persona persona = personaRepository.findById(personaId).orElse(null);
         if (persona == null) return null;
         else {
-            return modelMapper.map(persona, PersonaData.class);
+            return modelMapper.map(persona, UsuarioData.class);
         }
     }
 }

@@ -1,53 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-<head th:replace="fragments :: head (titulo='formUsuario')">
+<head th:replace="fragments :: head (titulo='formDieta')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Usuario</title>
+    <title>Menú de Dietas</title>
 </head>
 <body>
 
 <div class="container">
-    <h1 class="mb-4">Menú de Usuario</h1>
+    <h1 class="mb-4">Menú de Dietas</h1>
 
-    <div class="mb-3">
-        <button class="btn btn-primary">Añadir Usuario</button>
-        <button class="btn btn-warning">Editar Usuario</button>
-        <button class="btn btn-danger">Eliminar Usuario</button>
+    <div class="d-flex justify-content-between mb-3">
+        <button class="btn btn-primary">Añadir Dieta</button>
+        <button class="btn btn-secondary">Contactar Nutricionista</button>
+        <button class="btn btn-warning">Contactar Administrador</button>
     </div>
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
+            <th>Nombre de la Dieta</th>
+            <th>Favorito</th>
+            <th>Detalles</th>
             <th>Acciones</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>Juan Pérez</td>
-            <td>juan.perez@example.com</td>
+        <tbody id="listaDietas">
+        <tr th:each="dieta : ${dietas}">
+            <td th:text="${dieta.nombre}"></td>
+            <td><span th:text="${dieta.favorito ? '✅' : '❌'}"></span></td>
             <td>
                 <button class="btn btn-info btn-sm">Detalles</button>
             </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>María López</td>
-            <td>maria.lopez@example.com</td>
             <td>
-                <button class="btn btn-info btn-sm">Detalles</button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Carlos García</td>
-            <td>carlos.garcia@example.com</td>
-            <td>
-                <button class="btn btn-info btn-sm">Detalles</button>
+                <button class="btn btn-success btn-sm">Marcar Favorito</button>
+                <button class="btn btn-danger btn-sm">Eliminar</button>
             </td>
         </tr>
         </tbody>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: head (titulo='Registro')">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <th:block th:replace="fragments.html :: head(titulo='Login')"></th:block>
 </head>
 
 <body>
@@ -21,16 +22,16 @@
             <div class="form-container">
                 <form method="post" th:action="@{/registro}" th:object="${registroData}">
                     <div class="form-group">
-                        <label for="eMail">Correo Electrónico</label>
-                        <input id="eMail" class="form-control" name="eMail" placeholder="Correo electrónico" type="text" th:field="*{email}" required/>
+                        <label for="correo">Correo Electrónico</label>
+                        <input id="correo" class="form-control" name="correo" placeholder="Correo electrónico" type="text" th:field="*{correo}" required/>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input id="nombre" class="form-control" name="nombre" placeholder="Nombre" type="text" th:field="*{nombre}"/>
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input id="password" class="form-control" name="password" placeholder="Contraseña" type="password" th:field="*{password}" required/>
+                        <label for="contraseña">Contraseña</label>
+                        <input id="contraseña" class="form-control" name="contraseña" placeholder="Contraseña" type="password" th:field="*{contraseña}" required/>
                     </div>
                     <div class="form-group">
                         <label for="peso">Peso (kg)</label>
@@ -61,5 +62,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<th:block th:replace="fragments.html :: javascript"></th:block>
 </body>
 </html>

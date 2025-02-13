@@ -3,7 +3,7 @@ package madstodolist.controller;
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.LoginData;
 import madstodolist.dto.RegistroData;
-import madstodolist.dto.PersonaData;
+import madstodolist.dto.UsuarioData;
 import madstodolist.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class LoginController {
         PersonaService.LoginStatus loginStatus = personaService.login(loginData.geteMail(), loginData.getPassword());
 
         if (loginStatus == PersonaService.LoginStatus.LOGIN_OK) {
-            PersonaData usuario = personaService.findByEmail(loginData.geteMail());
+            UsuarioData usuario = personaService.findByEmail(loginData.geteMail());
 
             managerUserSession.logearPersona(usuario.getId());
 
@@ -77,12 +77,15 @@ public class LoginController {
             return "formRegistro";
         }
 
-        PersonaData personaData = new PersonaData();
-        personaData.setCorreo(registroData.getCorreo());
-        personaData.setContraseña(registroData.getContraseña());
-        personaData.setNombre(registroData.getNombre());
+        UsuarioData usuarioData = new UsuarioData();
+        usuarioData.setCorreo(registroData.getCorreo());
+        usuarioData.setContraseña(registroData.getContraseña());
+        usuarioData.setNombre(registroData.getNombre());
+        usuarioData.setEdad(registroData.getEdad());
+        usuarioData.setPeso(registroData.getPeso());
+        usuarioData.setSexo(registroData.getSexo());
 
-        personaService.registrar(personaData);
+        personaService.registrar(usuarioData);
         return "redirect:/login";
    }
 
