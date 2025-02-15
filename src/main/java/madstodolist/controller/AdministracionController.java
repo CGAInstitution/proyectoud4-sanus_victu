@@ -1,7 +1,9 @@
 package madstodolist.controller;
 
 import madstodolist.dto.LoginData;
+import madstodolist.model.Nutricionista;
 import madstodolist.model.Usuario;
+import madstodolist.service.NutricionistaService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -18,6 +21,11 @@ import java.util.List;
 public class AdministracionController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private NutricionistaService nutricionistaService;
+
+
 
     @GetMapping("/panel")
     public String administracion() {
@@ -34,6 +42,18 @@ public class AdministracionController {
     public String eliminarUsuario(@PathVariable Long id) {
         usuarioService.eliminar(id);
         return "redirect:/administracion/usuarios";
+    }
+
+    @GetMapping("/nutricionistas")
+    public String listarNutricionistas(Model model) {
+        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
+        model.addAttribute("nutricionistas", nutricionistas);
+        return "listNutricionistas";
+    }
+    @PostMapping("/nutricionistas/eliminar/{id}")
+    public String eliminarNuticionista(@PathVariable Long id) {
+        nutricionistaService.eliminar(id);
+        return "redirect:/administracion/nutricionistas";
     }
 
 }

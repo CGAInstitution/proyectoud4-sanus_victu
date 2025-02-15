@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="fragments.html :: head(titulo='ListaNutricionistas')"></th:block>
+    <title>Lista de Nutricionistas</title>
+</head>
+<body>
+<h1>Lista de Nutricionistas</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Pacientes</th>
+        <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="nutricionista : ${nutricionistas}">
+        <td th:text="${nutricionista.id}"></td>
+        <td th:text="${nutricionista.nombre}"></td>
+        <td th:text="${nutricionista.correo}"></td>
+        <td>
+            <ul>
+                <li th:each="paciente : ${nutricionista.pacientes}" th:text="${paciente.nombre}"></li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="@{/administracion/nutricionistas/eliminar/{id}(id=${nutricionista.id})}" method="post">
+                <button id="delete" type="submit">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

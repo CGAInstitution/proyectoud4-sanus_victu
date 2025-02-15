@@ -12,7 +12,7 @@ import java.util.Set;
 @DiscriminatorValue(value = "Nutricionista")
 public class Nutricionista extends Persona {
 
-    @OneToMany(mappedBy = "nutricionista")
+    @OneToMany(mappedBy = "nutricionista", fetch = FetchType.EAGER)
     private Set<Usuario> pacientes = new HashSet<Usuario>();
 
 
