@@ -1,5 +1,7 @@
 package madstodolist.service;
 
+import madstodolist.authentication.LoginResponse;
+import madstodolist.dto.PersonaData;
 import madstodolist.dto.UsuarioData;
 import madstodolist.model.Persona;
 import madstodolist.model.Usuario;
@@ -20,28 +22,64 @@ public class PersonaService {
 
     public enum LoginStatus {LOGIN_OK, USER_NOT_FOUND, ERROR_PASSWORD}
 
+    public enum TipoPersonaStatus {USUARIO, NUTRICIONISTA, ADMINISTRADOR}
+
     @Autowired
     private personaRepository personaRepository;
     @Autowired
     private ModelMapper modelMapper;
 
     @Transactional(readOnly = true)
-    public LoginStatus login(String eMail, String password) {
-        Optional<Persona> persona = personaRepository.findByCorreo(eMail);
+    public LoginResponse login(String correo, String contraseña) {
+        Optional<Persona> persona = personaRepository.findByCorreo(correo);
         if (!persona.isPresent()) {
-            return LoginStatus.USER_NOT_FOUND;
-        } else if (!persona.get().getContraseña().equals(password)) {
-            return LoginStatus.ERROR_PASSWORD;
+            return new LoginResponse(LoginStatus.USER_NOT_FOUND, null);
+        } else if (!persona.get().getContraseña().equals(contraseña)) {
+            return new LoginResponse(LoginStatus.ERROR_PASSWORD, null);
         } else {
-            return LoginStatus.LOGIN_OK;
+            TipoPersonaStatus tipoPersonaStatus = checkTipoPersona(persona.get());
+            String redirectUrl = getRedirectUrl(tipoPersonaStatus, persona.get().getId());
+            return new LoginResponse(LoginStatus.LOGIN_OK, redirectUrl);
         }
     }
+
+
+    private String getRedirectUrl(TipoPersonaStatus tipoPersonaStatus, Long id) {
+        switch (tipoPersonaStatus) {
+            case ADMINISTRADOR:
+                System.out.println("🔵 Redirigiendo a ADMINISTRADOR");
+                return "/administracion/" + id + "/panel";
+            case NUTRICIONISTA:
+                System.out.println("🟢 Redirigiendo a NUTRICIONISTA");
+                return "/nutricionista/dashboard";
+            case USUARIO:
+            default:
+                System.out.println("🟠 Redirigiendo a USUARIO");
+                return "/usuarios/" + id + "/inicio";
+        }
+    }
+
+
+
+    @Transactional
+    public TipoPersonaStatus checkTipoPersona(Persona persona) {
+        String tipo = persona.getTipoPersona().trim().toLowerCase();
+
+        if (tipo.equals("administrador")) {
+            return TipoPersonaStatus.ADMINISTRADOR;
+        } else if (tipo.equals("nutricionista")) {
+            return TipoPersonaStatus.NUTRICIONISTA;
+        } else {
+            return TipoPersonaStatus.USUARIO;
+        }
+    }
+
 
     // Se añade un persona1 en la aplicación.
     // El email y password del persona1 deben ser distinto de null
     // El email no debe estar registrado en la base de datos
     @Transactional
-    public UsuarioData registrar(UsuarioData persona1) {
+    public PersonaData registrar(UsuarioData persona1) {
         Optional<Persona> personaDB = personaRepository.findByCorreo(persona1.getCorreo());
         if (personaDB.isPresent())
             throw new PersonaServiceException("El usuario " + persona1.getCorreo() + " ya está registrado");
@@ -52,25 +90,25 @@ public class PersonaService {
         else {
             Usuario usuarioNuevo = modelMapper.map(persona1, Usuario.class);
             usuarioNuevo = personaRepository.save(usuarioNuevo);
-            return modelMapper.map(usuarioNuevo, UsuarioData.class);
+            return modelMapper.map(usuarioNuevo, PersonaData.class);
         }
     }
 
     @Transactional(readOnly = true)
-    public UsuarioData findByEmail(String email) {
+    public PersonaData findByEmail(String email) {
         Persona persona = personaRepository.findByCorreo(email).orElse(null);
         if (persona == null) return null;
         else {
-            return modelMapper.map(persona, UsuarioData.class);
+            return modelMapper.map(persona, PersonaData.class);
         }
     }
 
     @Transactional(readOnly = true)
-    public UsuarioData findById(int personaId) {
+    public PersonaData findById(Long personaId) {
         Persona persona = personaRepository.findById(personaId).orElse(null);
         if (persona == null) return null;
         else {
-            return modelMapper.map(persona, UsuarioData.class);
+            return modelMapper.map(persona, PersonaData.class);
         }
     }
 }

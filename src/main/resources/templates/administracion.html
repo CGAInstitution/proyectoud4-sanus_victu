@@ -11,8 +11,8 @@
             <h1>Administración</h1>
             <div class="buttons">
                 <a href="#mensajes" class="button">Mensajes</a>
-                <a href="/administracion/usuarios" class="button">Usuarios</a>
-                <a href="/administracion/nutricionistas" class="button">Nutricionistas</a>
+                <a th:href="@{/administracion/{id}/listaUsuarios(id=${adminId})}" class="button">Usuarios</a>
+                <a th:href="@{/administracion/{id}/listaNutricionistas(id=${adminId})}" class="button">Nutricionistas</a>
             </div>
         </div>
     </body>
