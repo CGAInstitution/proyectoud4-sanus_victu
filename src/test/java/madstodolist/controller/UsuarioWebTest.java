@@ -41,7 +41,7 @@ public class UsuarioWebTest {
 
         UsuarioData anaGarcia = new UsuarioData();
         anaGarcia.setNombre("Ana García");
-        anaGarcia.setId(1L);
+        anaGarcia.setId(1);
 
         when(personaService.login("ana.garcia@gmail.com", "12345678"))
                 .thenReturn(PersonaService.LoginStatus.LOGIN_OK);

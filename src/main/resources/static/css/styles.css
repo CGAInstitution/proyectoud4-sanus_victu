@@ -1,14 +1,14 @@
 /* Estilo general de la página */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4fdf2; /* Fondo de la página en un verde muy suave */
+    background-color: #f4fdf2;
     color: #333;
     margin: 0;
     padding: 20px;
 }
 
 h1, h2, h3 {
-    color: #4CAF50; /* Verde principal */
+    color: #4CAF50;
 }
 
 h1 {
@@ -29,18 +29,18 @@ h3 {
 
 /* Enlaces */
 a {
-    color: #4CAF50; /* Verde principal */
+    color: #4CAF50;
     text-decoration: none;
 }
 
 a:hover {
-    color: #388E3C; /* Verde más oscuro */
+    color: #388E3C;
     text-decoration: underline;
 }
 
 /* Botones */
 button, .button {
-    background-color: #81C784; /* Verde más suave */
+    background-color: #81C784;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -51,7 +51,7 @@ button, .button {
 }
 
 button:hover, .button:hover {
-    background-color: #66BB6A; /* Verde intermedio */
+    background-color: #66BB6A;
 }
 
 /* Contenedor principal */
@@ -75,16 +75,16 @@ th, td {
 }
 
 th {
-    background-color: #66BB6A; /* Verde intermedio */
+    background-color: #66BB6A;
     color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #f1f8e9; /* Fondo verde claro */
+    background-color: #f1f8e9;
 }
 
 tr:hover {
-    background-color: #dcedc8; /* Fondo verde muy suave */
+    background-color: #dcedc8;
 }
 
 /* Formularios */
@@ -95,11 +95,11 @@ input[type="text"], input[type="email"], textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1em;
-    background-color: #e8f5e9; /* Fondo verde suave */
+    background-color: #e8f5e9;
 }
 
 input[type="submit"] {
-    background-color: #81C784; /* Verde más suave */
+    background-color: #81C784;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -109,7 +109,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #66BB6A; /* Verde intermedio */
+    background-color: #66BB6A;
 }
 
 /* Estilos de las imágenes */
@@ -118,4 +118,23 @@ img {
     height: auto;
     border-radius: 8px;
     margin: 20px 0;
+}
+/* Estilo para el botón con el id "delete" */
+#delete {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#delete:hover {
+    background-color: darkred;
+}
+
+#delete:active {
+    background-color: maroon;
 }
