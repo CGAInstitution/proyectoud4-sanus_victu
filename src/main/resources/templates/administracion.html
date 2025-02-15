@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <th:block th:replace="fragments.html :: head(titulo='Administracion')"></th:block>
+        <title>Administración</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Administración</h1>
+            <div class="buttons">
+                <a href="#mensajes" class="button">Mensajes</a>
+                <a href="/administracion/usuarios" class="button">Usuarios</a>
+                <a href="/administracion/nutricionistas" class="button">Nutricionistas</a>
+            </div>
+        </div>
+    </body>
+</html>

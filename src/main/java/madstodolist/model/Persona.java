@@ -15,7 +15,7 @@ public class Persona implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_persona", nullable = false)
-    private int id;
+    private long id;
 
     @Column(name = "nombre", unique = true, nullable = false)
     private String nombre;
@@ -37,7 +37,7 @@ public class Persona implements Serializable {
     private String tipoPersona;
 
     // Constructores
-    public Persona(int id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos) {
+    public Persona(long id, String nombre, String contraseña, String correo, Set<Mensaje> mensajesEnviados, Set<Mensaje> mensajesRecibidos) {
         this.id = id;
         this.nombre = nombre;
         this.contraseña = contraseña;
@@ -49,8 +49,8 @@ public class Persona implements Serializable {
     public Persona() {}
 
     // Getters & Setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }

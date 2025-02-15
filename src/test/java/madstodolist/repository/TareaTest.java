@@ -94,9 +94,9 @@ public class TareaTest {
         Tarea tarea1 = new Tarea(usuario, "Práctica 1 de MADS");
         Tarea tarea2 = new Tarea(usuario, "Lavar la ropa");
         Tarea tarea3 = new Tarea(usuario, "Pagar el alquiler");
-        tarea1.setId(1L);
-        tarea2.setId(2L);
-        tarea3.setId(1L);
+        tarea1.setId(1);
+        tarea2.setId(2);
+        tarea3.setId(1);
 
         // THEN
         // son iguales (Equal) las tareas que tienen el mismo identificador.
