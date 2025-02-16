@@ -75,24 +75,6 @@ public class PersonaService {
     }
 
 
-    // Se añade un persona1 en la aplicación.
-    // El email y password del persona1 deben ser distinto de null
-    // El email no debe estar registrado en la base de datos
-    @Transactional
-    public PersonaData registrar(UsuarioData persona1) {
-        Optional<Persona> personaDB = personaRepository.findByCorreo(persona1.getCorreo());
-        if (personaDB.isPresent())
-            throw new PersonaServiceException("El usuario " + persona1.getCorreo() + " ya está registrado");
-        else if (persona1.getCorreo() == null)
-            throw new PersonaServiceException("El usuario no tiene email");
-        else if (persona1.getContraseña() == null)
-            throw new PersonaServiceException("El usuario no tiene password");
-        else {
-            Usuario usuarioNuevo = modelMapper.map(persona1, Usuario.class);
-            usuarioNuevo = personaRepository.save(usuarioNuevo);
-            return modelMapper.map(usuarioNuevo, PersonaData.class);
-        }
-    }
 
     @Transactional(readOnly = true)
     public PersonaData findByEmail(String email) {

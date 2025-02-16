@@ -6,7 +6,6 @@ import java.util.Objects;
 // Data Transfer Object para la clase Usuario
 public class UsuarioData {
 
-    private Long id;
     private String correo;
     private String nombre;
     private String contraseña;
@@ -15,14 +14,6 @@ public class UsuarioData {
     private String sexo;
 
     // Getters y setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCorreo() {
         return correo;

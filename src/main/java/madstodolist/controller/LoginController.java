@@ -7,6 +7,7 @@ import madstodolist.dto.RegistroData;
 import madstodolist.dto.PersonaData;
 import madstodolist.dto.UsuarioData;
 import madstodolist.service.PersonaService;
+import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,8 @@ public class LoginController {
 
     @Autowired
     ManagerUserSession managerUserSession;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -112,7 +115,7 @@ public class LoginController {
         usuarioData.setPeso(registroData.getPeso());
         usuarioData.setSexo(registroData.getSexo());
 
-        personaService.registrar(usuarioData);
+        usuarioService.registrar(usuarioData);
         return "redirect:/login";
     }
 

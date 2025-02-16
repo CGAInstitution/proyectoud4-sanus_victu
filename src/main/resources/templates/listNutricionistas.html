@@ -30,8 +30,8 @@
             </ul>
         </td>
         <td>
-            <form th:action="@{/administracion/nutricionistas/eliminar/{id}(id=${nutricionista.id})}" method="post">
-                <button id="delete" type="submit">Eliminar</button>
+            <form th:action="@{/administracion/{adminId}/listaNutricionistas/eliminar/{nutriId}(adminId=${adminId}, nutriId=${nutricionista.id})}" method="post">
+            <button id="delete" type="submit">Eliminar</button>
             </form>
         </td>
     </tr>

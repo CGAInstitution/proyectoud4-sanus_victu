@@ -28,8 +28,8 @@
                 <td th:text="${usuario.edad}"></td>
                 <td th:text="${usuario.sexo}"></td>
                 <td>
-                    <form th:action="@{/administracion/usuarios/eliminar/{id}(id=${usuario.id})}" method="post">
-                        <button id="delete" type="submit">Eliminar</button>
+                    <form th:action="@{/administracion/{adminId}/listaUsuarios/eliminar/{userId}(adminId=${adminId}, userId=${usuario.id})}" method="post">
+                    <button id="delete" type="submit">Eliminar</button>
                     </form>
                 </td>
             </tr>
