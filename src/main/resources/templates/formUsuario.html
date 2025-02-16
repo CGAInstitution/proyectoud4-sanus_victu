@@ -11,11 +11,15 @@
     <h1 class="mb-4">Menú de Dietas</h1>
 
     <div class="d-flex justify-content-between mb-3">
-        <form action="/newDieta" method="get">
+        <form th:action="@{/usuarios/{id}/newDieta(id=${idUsuario})}" method="get">
             <button type="submit">Añadir Dietas</button>
         </form>
-        <button class="btn btn-secondary">Contactar Nutricionista</button>
-        <button class="btn btn-warning">Contactar Administrador</button>
+        <form th:action="@{/usuarios/{id}/mensaje(id=${idUsuario})}" method="get">
+            <button class="btn btn-secondary">Contactar Nutricionista</button>
+        </form>
+        <form th:action="@{/usuarios/{id1}/mensaje/administrador/1(id1=${idUsuario})}" method="get">
+            <button class="btn btn-warning">Contactar Administrador</button>
+        </form>
     </div>
 
     <table class="table table-striped">

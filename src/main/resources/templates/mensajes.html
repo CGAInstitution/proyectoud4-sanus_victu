@@ -1,69 +1,82 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:replace="fragments.html :: head(titulo='Mensajes')"></th:block>
     <title>Mensajes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            background: #f9f9f9;
+        }
+        .message {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .received {
+            background-color: #e3f2fd;
+            align-self: flex-start;
+        }
+        .sent {
+            background-color: #c8e6c9;
+            align-self: flex-end;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-container button {
+            padding: 10px;
+            margin-left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
 <div class="chat-container">
-    <div class="header">
-        Chat
+    <h1>Mensajes</h1>
+
+    <div th:each="mensaje : ${mensajes}" class="message"
+         th:class="${mensaje.remitente.id == idUsuario} ? 'sent' : 'received'">
+        <strong th:text="${mensaje.remitente.nombre}"></strong>
+        <p th:text="${mensaje.texto}"></p>
+        <small th:text="${#dates.format(mensaje.hora, 'dd/MM/yyyy HH:mm')}"></small>
     </div>
 
-    <div class="chat-area">
-        <!-- Mensaje recibido -->
-        <div class="message received">
-            <div class="bubble">¡Hola! ¿Cómo estás?</div>
-        </div>
-
-        <!-- Mensaje enviado -->
-        <div class="message sent">
-            <div class="bubble">¡Hola! Bien, ¿y tú?</div>
-        </div>
-
-        <!-- Mensaje recibido -->
-        <div class="message received">
-            <div class="bubble">Todo bien, gracias. ¿Quieres salir a caminar más tarde?</div>
-        </div>
-    </div>
-
-    <div class="input-area">
-        <input type="text" placeholder="Escribe un mensaje..." id="messageInput">
-        <button id="sendButton">→</button>
+    <div class="input-container">
+        <form th:action="@{/usuarios/{id1}/mensaje/{persona2}/{id2}/enviarMensaje(id1=${id1}, persona2=${persona2}, id2=${destinatarioId})}" method="post">
+            <input type="text" name="texto" placeholder="Escribe tu mensaje..." required>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
 </div>
 
-<script>
-    const sendButton = document.getElementById('sendButton');
-    const messageInput = document.getElementById('messageInput');
-    const chatArea = document.querySelector('.chat-area');
-
-    sendButton.addEventListener('click', () => {
-        const messageText = messageInput.value.trim();
-        if (messageText !== '') {
-            const message = document.createElement('div');
-            message.classList.add('message', 'sent');
-
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            bubble.textContent = messageText;
-            message.appendChild(bubble);
-
-            chatArea.appendChild(message);
-            messageInput.value = '';
-            chatArea.scrollTop = chatArea.scrollHeight; // Para desplazar hacia abajo cuando llega un nuevo mensaje
-        }
-    });
-
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendButton.click();
-        }
-    });
-</script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
