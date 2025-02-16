@@ -9,37 +9,35 @@ import java.util.Set;
 @Table(name = "supermercados")
 public class Supermercado implements Serializable {
     @Id
-    @Column(name = "Id_supermercado")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_supermercado")
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "localización", nullable = false)
-    private String localizacion;
+    @ManyToMany(mappedBy = "supermercados")
+    private Set<Producto> productos = new HashSet<>();
 
-    @OneToMany(mappedBy = "supermercado", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Producto_Supermercado> productoSupermercados = new HashSet<>();
 
     // Constructores
-    public Supermercado(String id, String nombre, String localizacion) {
+
+    public Supermercado(Long id, String nombre, String localizacion) {
         this.id = id;
         this.nombre = nombre;
-        this.localizacion = localizacion;
     }
 
     public Supermercado() {}
 
-    // Getters & Setters
-    public String getLocalizacion() { return localizacion; }
-    public void setLocalizacion(String localizacion) { this.localizacion = localizacion; }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    // Getters & Setters
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Set<Producto_Supermercado> getProductoSupermercados() { return productoSupermercados; }
-    public void setProductoSupermercados(Set<Producto_Supermercado> productoSupermercados) { this.productoSupermercados = productoSupermercados; }
+    public Set<Producto> getProductos() { return productos; }
+    public void setProductos(Set<Producto> productos) { this.productos = productos; }
 }
