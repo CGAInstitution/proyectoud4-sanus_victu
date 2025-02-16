@@ -2,9 +2,7 @@ package madstodolist.service;
 
 import madstodolist.authentication.LoginResponse;
 import madstodolist.dto.PersonaData;
-import madstodolist.dto.UsuarioData;
 import madstodolist.model.Persona;
-import madstodolist.model.Usuario;
 import madstodolist.repository.personaRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -51,7 +49,7 @@ public class PersonaService {
                 return "/administracion/" + id + "/panel";
             case NUTRICIONISTA:
                 System.out.println("🟢 Redirigiendo a NUTRICIONISTA");
-                return "/nutricionista/dashboard";
+                return "/nutricionista/" + id + "/panel";
             case USUARIO:
             default:
                 System.out.println("🟠 Redirigiendo a USUARIO");
@@ -86,11 +84,11 @@ public class PersonaService {
     }
 
     @Transactional(readOnly = true)
-    public PersonaData findById(Long personaId) {
+    public Persona findById(Long personaId) {
         Persona persona = personaRepository.findById(personaId).orElse(null);
         if (persona == null) return null;
         else {
-            return modelMapper.map(persona, PersonaData.class);
+            return persona;
         }
     }
 }

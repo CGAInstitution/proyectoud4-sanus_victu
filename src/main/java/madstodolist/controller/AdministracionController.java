@@ -14,9 +14,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/administracion/{id}")
 public class AdministracionController {
+
     @Autowired
     private UsuarioService usuarioService;
-
     @Autowired
     private NutricionistaService nutricionistaService;
 

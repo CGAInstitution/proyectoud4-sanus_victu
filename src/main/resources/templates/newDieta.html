@@ -27,48 +27,45 @@
       </tr>
       </thead>
       <tbody>
-      <!-- Iteramos sobre los productos pasados desde el controlador -->
-      <tr th:each="producto : ${productos}">
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}">pro</option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
-          </select>
-        </td>
+      <!-- Celdas vacías, los productos se agregarán en el servidor cuando se seleccionen -->
+      <tr th:each="producto : ${productosSeleccionados}">
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
+        <td th:text="${producto.nombre}"></td>
       </tr>
       </tbody>
     </table>
+
     <button type="submit">Guardar Dieta</button>
   </div>
 </form>
+
+<div>
+  <label><input type="checkbox" name="diasSeleccionados" value="lunes" /> Lunes</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="martes" /> Martes</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="miercoles" /> Miércoles</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="jueves" /> Jueves</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="viernes" /> Viernes</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="sabado" /> Sábado</label>
+  <label><input type="checkbox" name="diasSeleccionados" value="domingo" /> Domingo</label>
+</div>
+
+<!-- Lista de productos seleccionables -->
+<div class="productos-lista">
+  <h3>Selecciona los productos</h3>
+  <ul>
+    <li th:each="producto : ${productos}" th:text="${producto.nombre}">
+      <input type="checkbox" name="productosSeleccionados" th:value="${producto.id}" />
+      <span th:text="${producto.nombre}"></span>
+    </li>
+  </ul>
+  <button type="submit">Guardar cambios</button>
+  <button type="submit">Vaciar tabla</button>
+</div>
+
 </body>
 </html>
