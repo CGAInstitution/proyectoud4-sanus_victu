@@ -30,7 +30,7 @@
             <td th:text="${usuario.edad}"></td>
             <td th:text="${usuario.sexo}"></td>
             <td>
-                <a th:href="@{/contactar/{id}(id=${usuario.id})}">Contactar</a>
+                <a th:href="@{/nutricionista/{id}/mensaje/usuario/{id2}(id=${nutricionistaId}, id2=${usuario.id})}">Contactar</a>
             </td>
         </tr>
         </tbody>

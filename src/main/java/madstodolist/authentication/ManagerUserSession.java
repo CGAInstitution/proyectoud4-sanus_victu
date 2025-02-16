@@ -20,8 +20,6 @@ public class ManagerUserSession {
     public Long personaLogeado() {
         Object id = session.getAttribute("idPersonaLogeada");
 
-        System.out.println("📌 Recuperando ID de sesión: " + id);
-
         return id != null ? (Long) id : null;
     }
 

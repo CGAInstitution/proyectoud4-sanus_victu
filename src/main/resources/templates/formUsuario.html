@@ -14,7 +14,7 @@
         <form th:action="@{/usuarios/{id}/newDieta(id=${idUsuario})}" method="get">
             <button type="submit">Añadir Dietas</button>
         </form>
-        <form th:action="@{/usuarios/{id}/mensaje(id=${idUsuario})}" method="get">
+        <form th:action="@{/usuarios/{id1}/mensaje/nutricionista/{id2}(id1=${idUsuario}, id2=${idNutricionista})}" method="get">
             <button class="btn btn-secondary">Contactar Nutricionista</button>
         </form>
         <form th:action="@{/usuarios/{id1}/mensaje/administrador/1(id1=${idUsuario})}" method="get">
