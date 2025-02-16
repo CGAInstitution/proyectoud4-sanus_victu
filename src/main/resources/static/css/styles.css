@@ -1,36 +1,40 @@
 /* Estilo general de la página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4fdf2;
+    font-family: 'Arial', sans-serif;
+    background-color: #e8f5e9;
     color: #333;
     margin: 0;
     padding: 20px;
+    line-height: 1.6;
 }
 
 h1, h2, h3 {
-    color: #4CAF50;
+    color: #388E3C;
+    font-family: 'Georgia', serif;
 }
 
 h1 {
     text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    color: #2C6B2F;
 }
 
 h2 {
-    font-size: 2em;
-    margin-top: 40px;
-}
-
-h3 {
-    font-size: 1.5em;
+    font-size: 2.2em;
     margin-top: 30px;
 }
 
-/* Enlaces */
+h3 {
+    font-size: 1.6em;
+    margin-top: 25px;
+}
+
+
 a {
     color: #4CAF50;
     text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
@@ -38,38 +42,37 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Botones */
 button, .button {
     background-color: #81C784;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover, .button:hover {
     background-color: #66BB6A;
+    transform: scale(1.05); /* agrandar un poco el botón */
 }
 
-/* Contenedor principal */
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
 }
 
-/* Estilo de tablas */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 th, td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
     border: 1px solid #ddd;
 }
@@ -77,6 +80,7 @@ th, td {
 th {
     background-color: #66BB6A;
     color: white;
+    font-weight: bold;
 }
 
 tr:nth-child(even) {
@@ -87,13 +91,12 @@ tr:hover {
     background-color: #dcedc8;
 }
 
-/* Formularios */
 input[type="text"], input[type="email"], textarea {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 12px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1em;
     background-color: #e8f5e9;
 }
@@ -103,7 +106,7 @@ input[type="submit"] {
     color: white;
     border: none;
     padding: 12px 20px;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1.1em;
 }
@@ -112,7 +115,6 @@ input[type="submit"]:hover {
     background-color: #66BB6A;
 }
 
-/* Estilos de las imágenes */
 img {
     max-width: 100%;
     height: auto;
@@ -125,10 +127,10 @@ img {
     background-color: red;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 6px;
     transition: background-color 0.3s ease;
 }
 
@@ -140,32 +142,34 @@ img {
     background-color: maroon;
 }
 
-/* Estilo del chat */
+
 select {
-    padding: 5px;
+    padding: 8px;
     width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ddd;
 }
 
 .nombre-dieta {
     margin-bottom: 20px;
     display: flex;
-    align-items: center; /* Alinea el texto y el campo de entrada en línea */
+    align-items: center;
     justify-content: center;
 }
 
 .nombre-dieta label {
-    margin-right: 10px; /* Espacio entre el label y el campo de texto */
+    margin-right: 10px;
     font-weight: bold;
 }
 
 /* Estilo para el contenedor del chat */
 .chat-container {
-    width: 360px;
-    height: 600px;
-    background-color: white;
+    width: 380px;
+    height: 650px;
+    background-color: #fff;
     margin: 20px auto;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
 }
@@ -181,14 +185,14 @@ select {
 
 .chat-area {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
     overflow-y: auto;
-    padding-bottom: 50px; /* Para que no se tapen los mensajes con el input */
+    padding-bottom: 60px;
 }
 
 .message {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .message.sent {
@@ -201,10 +205,10 @@ select {
 
 .message .bubble {
     background-color: #dcf8c6;
-    padding: 10px 15px;
+    padding: 12px 18px;
     border-radius: 20px;
-    max-width: 70%;
-    font-size: 14px;
+    max-width: 75%;
+    font-size: 15px;
     word-wrap: break-word;
 }
 
@@ -216,25 +220,25 @@ select {
 .input-area {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 12px;
     border-top: 1px solid #ddd;
     background-color: white;
 }
 
 .input-area input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border-radius: 20px;
     border: 1px solid #ddd;
     font-size: 14px;
-    margin-right: 10px;
+    margin-right: 12px;
 }
 
 .input-area button {
     background-color: #075e54;
     border: none;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
