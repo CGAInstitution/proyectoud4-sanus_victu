@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="fragments.html :: head(titulo='DetalleDieta')"></th:block>
+    <title>Detalle de la Dieta</title>
+</head>
+<body>
+<h1>Detalle de la Dieta</h1>
+
+<div>
+    <label for="id">Id:</label>
+    <div id="id" th:text="${dieta.id}"></div>
+</div>
+
+<div>
+    <label for="nombre">Nombre:</label>
+    <div id="nombre" th:text="${dieta.nombre}"></div>
+</div>
+
+<div>
+    <label for="favorita">¿Es Favorita?</label>
+    <div id="favorita" th:text="${dieta.favorita ? 'Sí' : 'No'}"></div>
+</div>
+
+<div>
+    <label for="productos">Productos:</label>
+    <div id="productos">
+        <ul>
+            <li th:each="producto : ${dieta.productos}" th:text="${producto}"></li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <form th:action="@{/administracion/dietas/eliminar/{id}(id=${dieta.id})}" method="post">
+        <button id="delete" type="submit">Eliminar Dieta</button>
+    </form>
+</div>
+
+</body>
+</html>
