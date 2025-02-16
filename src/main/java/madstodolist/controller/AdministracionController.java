@@ -55,5 +55,9 @@ public class AdministracionController {
         nutricionistaService.eliminar(id);
         return "redirect:/administracion/nutricionistas";
     }
+    @GetMapping("/mensajes")
+    public String mensajes(Model model) {
+        return "mensajes";
+    }
 
 }
