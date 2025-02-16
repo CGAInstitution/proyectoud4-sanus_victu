@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <th:block th:replace="fragments.html :: head(titulo='ListaProductos')"></th:block>
+      <title>Lista de Productos</title>
+  </head>
+  <body>
+    <h1>Lista de Productos</h1>
+    <table>
+        <thead>
+          <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Valor Energético</th>
+              <th>Grasas</th>
+              <th>Hidratos de Carbono</th>
+              <th>Fibra Alimentaria</th>
+              <th>Proteínas</th>
+              <th>Sal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="producto : ${productos}">
+              <td th:text="${producto.id}"></td>
+              <td th:text="${producto.nombre}"></td>
+              <td th:text="${producto.valor_energetico}"></td>
+              <td th:text="${producto.grasas}"></td>
+              <td th:text="${producto.hidratos_carbono}"></td>
+              <td th:text="${producto.fibra_alimentaria}"></td>
+              <td th:text="${producto.proteinas}"></td>
+              <td th:text="${producto.sal}"></td>
+          </tr>
+        </tbody>
+    </table>
+  </body>
+</html>

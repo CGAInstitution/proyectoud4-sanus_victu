@@ -10,7 +10,7 @@ import java.util.Set;
 public class Producto implements Serializable {
     @Id
     @Column(name = "Id_producto")
-    private String id;
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -40,7 +40,7 @@ public class Producto implements Serializable {
     private Set<Producto_Supermercado> productoSupermercados = new HashSet<>();
 
     // Constructores
-    public Producto(String id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
+    public Producto(Long id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
         this.id = id;
         this.nombre = nombre;
         this.grasas = grasas;
@@ -55,8 +55,8 @@ public class Producto implements Serializable {
     public Producto() {}
 
     // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }

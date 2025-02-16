@@ -138,3 +138,19 @@ img {
 #delete:active {
     background-color: maroon;
 }
+select {
+    padding: 5px;
+    width: 100%;
+}
+
+.nombre-dieta {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Alinea el texto y el campo de entrada en línea */
+    justify-content: center;
+}
+
+.nombre-dieta label {
+    margin-right: 10px; /* Espacio entre el label y el campo de texto */
+    font-weight: bold;
+}
