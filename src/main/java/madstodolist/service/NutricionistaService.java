@@ -14,6 +14,9 @@ public class NutricionistaService {
     @Autowired
     private nutricionistaRepository nutrep;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     // Obtener todos los nutricionistas
     public List<Nutricionista> obtenerTodos() {
         return nutrep.findAll();

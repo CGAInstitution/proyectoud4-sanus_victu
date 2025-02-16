@@ -17,7 +17,7 @@ public class Persona implements Serializable {
     @Column(name = "id_persona", nullable = false)
     private long id;
 
-    @Column(name = "nombre", unique = true, nullable = false)
+    @Column(name = "nombre", unique = false, nullable = false)
     private String nombre;
 
     @Column(name = "contraseña", unique = false, nullable = false)

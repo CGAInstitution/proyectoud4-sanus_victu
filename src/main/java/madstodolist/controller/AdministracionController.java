@@ -1,6 +1,5 @@
 package madstodolist.controller;
 
-import madstodolist.dto.LoginData;
 import madstodolist.model.Nutricionista;
 import madstodolist.model.Usuario;
 import madstodolist.service.NutricionistaService;
@@ -8,16 +7,12 @@ import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
-@RequestMapping ("/administracion")
+@RequestMapping("/administracion/{id}")
 public class AdministracionController {
     @Autowired
     private UsuarioService usuarioService;
@@ -25,35 +20,38 @@ public class AdministracionController {
     @Autowired
     private NutricionistaService nutricionistaService;
 
-
-
     @GetMapping("/panel")
-    public String administracion() {
+    public String administracion(@PathVariable Long id, Model model) {
+        model.addAttribute("adminId", id);
         return "administracion";
     }
-    @GetMapping("/usuarios")
-    public String listarUsuarios(Model model) {
+
+    @GetMapping("/listaUsuarios")
+    public String listarUsuarios(@PathVariable Long id, Model model) {
         List<Usuario> usuarios = usuarioService.obtenerTodos();
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("adminId", id);
         return "listUsuarios";
     }
-    // Ruta para eliminar un usuario
-    @PostMapping("/usuarios/eliminar/{id}")
-    public String eliminarUsuario(@PathVariable Long id) {
-        usuarioService.eliminar(id);
-        return "redirect:/administracion/usuarios";
+
+    @PostMapping("/listaUsuarios/eliminar/{userId}")
+    public String eliminarUsuario(@PathVariable Long id, @PathVariable Long userId) {
+        usuarioService.eliminar(userId);
+        return "redirect:/administracion/" + id + "/listaUsuarios";
     }
 
-    @GetMapping("/nutricionistas")
-    public String listarNutricionistas(Model model) {
+    @GetMapping("/listaNutricionistas")
+    public String listarNutricionistas(@PathVariable Long id, Model model) {
         List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
         model.addAttribute("nutricionistas", nutricionistas);
+        model.addAttribute("adminId", id);
         return "listNutricionistas";
     }
-    @PostMapping("/nutricionistas/eliminar/{id}")
-    public String eliminarNuticionista(@PathVariable Long id) {
-        nutricionistaService.eliminar(id);
-        return "redirect:/administracion/nutricionistas";
-    }
 
+    @PostMapping("/listaNutricionistas/eliminar/{nutriId}")
+    public String eliminarNutricionista(@PathVariable Long id, @PathVariable Long nutriId) {
+        usuarioService.desvincularNutricionista(nutriId);
+        nutricionistaService.eliminar(nutriId);
+        return "redirect:/administracion/" + id + "/listaNutricionistas";
+    }
 }

@@ -1,14 +1,13 @@
 package madstodolist.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "administradores")
+@Table(name = "Administrador")
+@PrimaryKeyJoinColumn(name="id_persona")
+@DiscriminatorValue(value = "ADMINISTRADOR")
 public class Administrador extends Persona {
 
     @Column(name = "nick_name", nullable = false)

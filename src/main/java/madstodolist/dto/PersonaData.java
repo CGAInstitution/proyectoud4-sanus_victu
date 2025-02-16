@@ -4,16 +4,22 @@ import java.util.Objects;
 
 
 // Data Transfer Object para la clase Usuario
-public class UsuarioData {
+public class PersonaData {
 
+    private Long id;
     private String correo;
     private String nombre;
     private String contraseña;
-    private int peso;
-    private int edad;
-    private String sexo;
 
     // Getters y setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCorreo() {
         return correo;
@@ -39,27 +45,20 @@ public class UsuarioData {
         this.contraseña = contraseña;
     }
 
-    public int getPeso() {
-        return peso;
+
+    // Sobreescribimos equals y hashCode para que dos personas sean iguales
+    // si tienen el mismo ID (ignoramos el resto de atributos)
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersonaData)) return false;
+        PersonaData that = (PersonaData) o;
+        return Objects.equals(getId(), that.getId());
     }
 
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
