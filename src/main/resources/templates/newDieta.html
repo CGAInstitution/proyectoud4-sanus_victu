@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:replace="fragments.html :: head(titulo='ListaProductos')"></th:block>
@@ -72,3 +73,76 @@
 </form>
 </body>
 </html>
+=======
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <th:block th:replace="fragments.html :: head(titulo='ListaProductos')"></th:block>
+  <title>Tabla de Productos para Dieta</title>
+</head>
+<body>
+<form action="/guardar-dieta" method="post">
+  <div class="container">
+    <h2>Plan de Dieta Semanal</h2>
+    <div class="nombre-dieta">
+      <label for="nombreDieta">Nombre de la Dieta: </label>
+      <input type="text" id="nombreDieta" name="nombreDieta" placeholder="Escribe el nombre de tu dieta">
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miércoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Iteramos sobre los productos pasados desde el controlador -->
+      <tr th:each="producto : ${productos}">
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}">pro</option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option th:each="prod : ${productos}" th:value="${prod.id}" th:text="${prod.nombre}"></option>
+          </select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="submit">Guardar Dieta</button>
+  </div>
+</form>
+</body>
+</html>
+>>>>>>> main

@@ -11,19 +11,22 @@ public class ManagerUserSession {
     @Autowired
     HttpSession session;
 
-    // Añadimos el id de usuario en la sesión HTTP para hacer
-    // una autorización sencilla. En los métodos de controllers
-    // comprobamos si el id del usuario logeado coincide con el obtenido
-    // desde la URL
-    public void logearPersona(int idPersona) {
-        session.setAttribute("idUsuarioLogeado", idPersona);
+    // Inicia sesión guardando el ID en la sesión
+    public void logearPersona(Long idPersona) {
+        session.setAttribute("idPersonaLogeada", idPersona);
     }
 
-    public int personaLogeado() {
-        return (int) session.getAttribute("idPersonaLogeado");
+    // Obtiene el ID de la persona logeada (maneja el caso de null)
+    public Long personaLogeado() {
+        Object id = session.getAttribute("idPersonaLogeada");
+
+        System.out.println("📌 Recuperando ID de sesión: " + id);
+
+        return id != null ? (Long) id : null;
     }
 
+    // Cierra la sesión eliminando el atributo o invalidando la sesión
     public void logout() {
-        session.setAttribute("idUsuarioLogeado", null);
+        session.invalidate();
     }
 }

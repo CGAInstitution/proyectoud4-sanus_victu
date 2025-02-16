@@ -1,6 +1,6 @@
 package madstodolist.service;
 
-import madstodolist.dto.UsuarioData;
+import madstodolist.dto.PersonaData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class PersonaServiceTest {
     // Método para inicializar los datos de prueba en la BD
     // Devuelve el identificador del usuario de la BD
     Long addUsuarioBD() {
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("user@ua");
         usuario.setNombre("Usuario Ejemplo");
         usuario.setPassword("123");
-        UsuarioData nuevoUsuario = personaService.registrar(usuario);
+        PersonaData nuevoUsuario = personaService.registrar(usuario);
         return nuevoUsuario.getId();
     }
 
@@ -61,7 +61,7 @@ public class PersonaServiceTest {
         // WHEN
         // Registramos un usuario con un e-mail no existente en la base de datos,
 
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("usuario.prueba2@gmail.com");
         usuario.setPassword("12345678");
 
@@ -70,7 +70,7 @@ public class PersonaServiceTest {
         // THEN
         // el usuario se añade correctamente al sistema.
 
-        UsuarioData usuarioBaseDatos = personaService.findByEmail("usuario.prueba2@gmail.com");
+        PersonaData usuarioBaseDatos = personaService.findByEmail("usuario.prueba2@gmail.com");
         assertThat(usuarioBaseDatos).isNotNull();
         assertThat(usuarioBaseDatos.getEmail()).isEqualTo("usuario.prueba2@gmail.com");
     }
@@ -81,7 +81,7 @@ public class PersonaServiceTest {
         // Si intentamos registrar un usuario con un password null,
         // se produce una excepción de tipo UsuarioServiceException
 
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("usuario.prueba@gmail.com");
 
         Assertions.assertThrows(PersonaServiceException.class, () -> {
@@ -101,7 +101,7 @@ public class PersonaServiceTest {
         // Si registramos un usuario con un e-mail ya existente en la base de datos,
         // , se produce una excepción de tipo UsuarioServiceException
 
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("user@ua");
         usuario.setPassword("12345678");
 
@@ -117,11 +117,11 @@ public class PersonaServiceTest {
         // Si registramos en el sistema un usuario con un e-mail no existente en la base de datos,
         // y un password no nulo,
 
-        UsuarioData usuario = new UsuarioData();
+        PersonaData usuario = new PersonaData();
         usuario.setEmail("usuario.prueba@gmail.com");
         usuario.setPassword("12345678");
 
-        UsuarioData usuarioNuevo = personaService.registrar(usuario);
+        PersonaData usuarioNuevo = personaService.registrar(usuario);
 
         // THEN
         // se actualiza el identificador del usuario
@@ -130,7 +130,7 @@ public class PersonaServiceTest {
 
         // con el identificador que se ha guardado en la BD.
 
-        UsuarioData usuarioBD = personaService.findById(usuarioNuevo.getId());
+        PersonaData usuarioBD = personaService.findById(usuarioNuevo.getId());
         assertThat(usuarioBD).isEqualTo(usuarioNuevo);
     }
 
@@ -144,7 +144,7 @@ public class PersonaServiceTest {
         // WHEN
         // recuperamos un usuario usando su e-mail,
 
-        UsuarioData usuario = personaService.findByEmail("user@ua");
+        PersonaData usuario = personaService.findByEmail("user@ua");
 
         // THEN
         // el usuario obtenido es el correcto.

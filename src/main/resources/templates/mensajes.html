@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <th:block th:replace="fragments.html :: head(titulo='Mensajes')"></th:block>
   <title>Mensajes</title>
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="fragments.html :: head(titulo='Mensajes')"></th:block>
+    <title>Mensajes</title>
+>>>>>>> main
 </head>
 <body>
 
 <div class="chat-container">
+<<<<<<< HEAD
   <div class="header">
     Chat
   </div>
@@ -67,3 +75,63 @@
 
 </body>
 </html>
+=======
+    <div class="header">
+        Chat
+    </div>
+
+    <div class="chat-area">
+        <!-- Mensaje recibido -->
+        <div class="message received">
+            <div class="bubble">¡Hola! ¿Cómo estás?</div>
+        </div>
+
+        <!-- Mensaje enviado -->
+        <div class="message sent">
+            <div class="bubble">¡Hola! Bien, ¿y tú?</div>
+        </div>
+
+        <!-- Mensaje recibido -->
+        <div class="message received">
+            <div class="bubble">Todo bien, gracias. ¿Quieres salir a caminar más tarde?</div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" placeholder="Escribe un mensaje..." id="messageInput">
+        <button id="sendButton">→</button>
+    </div>
+</div>
+
+<script>
+    const sendButton = document.getElementById('sendButton');
+    const messageInput = document.getElementById('messageInput');
+    const chatArea = document.querySelector('.chat-area');
+
+    sendButton.addEventListener('click', () => {
+        const messageText = messageInput.value.trim();
+        if (messageText !== '') {
+            const message = document.createElement('div');
+            message.classList.add('message', 'sent');
+
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.textContent = messageText;
+            message.appendChild(bubble);
+
+            chatArea.appendChild(message);
+            messageInput.value = '';
+            chatArea.scrollTop = chatArea.scrollHeight; // Para desplazar hacia abajo cuando llega un nuevo mensaje
+        }
+    });
+
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendButton.click();
+        }
+    });
+</script>
+
+</body>
+</html>
+>>>>>>> main

@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface personaRepository extends JpaRepository<Persona, Integer> {
+public interface personaRepository extends JpaRepository<Persona, Long> {
     Optional<Persona> findByCorreo(String s);
 }

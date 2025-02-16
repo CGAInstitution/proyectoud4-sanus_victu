@@ -9,12 +9,11 @@ import java.util.Set;
 @Entity
 @Table(name = "nutricionistas")
 @PrimaryKeyJoinColumn(name="id_persona")
-@DiscriminatorValue(value = "Nutricionista")
+@DiscriminatorValue(value = "NUTRICIONISTA")
 public class Nutricionista extends Persona {
 
     @OneToMany(mappedBy = "nutricionista", fetch = FetchType.EAGER)
-    private Set<Usuario> pacientes = new HashSet<Usuario>();
-
+    private Set<Usuario> pacientes = new HashSet<>();
 
     //Constructores
 

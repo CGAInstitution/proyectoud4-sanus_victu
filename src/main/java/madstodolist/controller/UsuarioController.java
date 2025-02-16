@@ -5,14 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/usuarios/{id}")
 public class UsuarioController {
 
 
-    @GetMapping("/usuarios/{id}/inicio")
+    @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
-        model.addAttribute("idUsuario", id); // Puedes usarlo en la vista si lo necesitas
+        model.addAttribute("idUsuario", id);
         return "formUsuario";
     }
 
