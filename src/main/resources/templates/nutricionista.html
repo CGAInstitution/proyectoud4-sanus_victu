@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <th:block th:replace="fragments.html :: head(titulo='Nutricionista')"></th:block>
+  <title>Nuticionista</title>
+</head>
+<body>
+<div class="container">
+  <h2>Usuarios Asignados al Nutricionista</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Peso</th>
+      <th>Edad</th>
+      <th>Sexo</th>
+      <th>Contactar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iteramos sobre los usuarios (pacientes) asignados al nutricionista -->
+    <tr th:each="usuario : ${pacientes}">
+      <td th:text="${usuario.id}"></td>
+      <td th:text="${usuario.nombre}"></td>
+      <td th:text="${usuario.peso}"></td>
+      <td th:text="${usuario.edad}"></td>
+      <td th:text="${usuario.sexo}"></td>
+      <td>
+        <a th:href="@{/contactar/{id}(id=${usuario.id})}">Contactar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
