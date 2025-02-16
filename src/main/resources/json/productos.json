@@ -2,301 +2,331 @@
   {
     "id": 1,
     "nombre": "Manzana",
-    "valor_energetico": 52,
+    "valorEnergetico": 52,
     "grasas": 0.2,
-    "hidratos_carbono": 14,
-    "fibra_alimentaria": 2.4,
+    "hidratosCarbono": 14,
+    "fibraAlimentaria": 2.4,
     "proteinas": 0.3,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour", "Lidl"]
   },
   {
     "id": 2,
     "nombre": "Banana",
-    "valor_energetico": 89,
+    "valorEnergetico": 89,
     "grasas": 0.3,
-    "hidratos_carbono": 23,
-    "fibra_alimentaria": 2.6,
+    "hidratosCarbono": 23,
+    "fibraAlimentaria": 2.6,
     "proteinas": 1.1,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Dia"]
   },
   {
     "id": 3,
     "nombre": "Tomate",
-    "valor_energetico": 18,
+    "valorEnergetico": 18,
     "grasas": 0.2,
-    "hidratos_carbono": 3.9,
-    "fibra_alimentaria": 1.2,
+    "hidratosCarbono": 3.9,
+    "fibraAlimentaria": 1.2,
     "proteinas": 0.9,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Carrefour", "Lidl"]
   },
   {
     "id": 4,
     "nombre": "Pera",
-    "valor_energetico": 57,
+    "valorEnergetico": 57,
     "grasas": 0.2,
-    "hidratos_carbono": 15,
-    "fibra_alimentaria": 3.1,
+    "hidratosCarbono": 15,
+    "fibraAlimentaria": 3.1,
     "proteinas": 0.4,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Dia", "Carrefour"]
   },
   {
     "id": 5,
     "nombre": "Zanahoria",
-    "valor_energetico": 41,
+    "valorEnergetico": 41,
     "grasas": 0.2,
-    "hidratos_carbono": 9.6,
-    "fibra_alimentaria": 2.8,
+    "hidratosCarbono": 9.6,
+    "fibraAlimentaria": 2.8,
     "proteinas": 0.9,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 6,
     "nombre": "Lechuga",
-    "valor_energetico": 15,
+    "valorEnergetico": 15,
     "grasas": 0.2,
-    "hidratos_carbono": 3,
-    "fibra_alimentaria": 1.2,
+    "hidratosCarbono": 3,
+    "fibraAlimentaria": 1.2,
     "proteinas": 1.0,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 7,
     "nombre": "Pepino",
-    "valor_energetico": 16,
+    "valorEnergetico": 16,
     "grasas": 0.1,
-    "hidratos_carbono": 3.6,
-    "fibra_alimentaria": 0.5,
+    "hidratosCarbono": 3.6,
+    "fibraAlimentaria": 0.5,
     "proteinas": 0.6,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 8,
     "nombre": "Melón",
-    "valor_energetico": 34,
+    "valorEnergetico": 34,
     "grasas": 0.2,
-    "hidratos_carbono": 9,
-    "fibra_alimentaria": 0.9,
+    "hidratosCarbono": 9,
+    "fibraAlimentaria": 0.9,
     "proteinas": 0.5,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 9,
     "nombre": "Sandía",
-    "valor_energetico": 30,
+    "valorEnergetico": 30,
     "grasas": 0.2,
-    "hidratos_carbono": 8,
-    "fibra_alimentaria": 0.4,
+    "hidratosCarbono": 8,
+    "fibraAlimentaria": 0.4,
     "proteinas": 0.6,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 10,
     "nombre": "Uva",
-    "valor_energetico": 69,
+    "valorEnergetico": 69,
     "grasas": 0.2,
-    "hidratos_carbono": 18,
-    "fibra_alimentaria": 0.9,
+    "hidratosCarbono": 18,
+    "fibraAlimentaria": 0.9,
     "proteinas": 0.7,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 11,
     "nombre": "Fresa",
-    "valor_energetico": 32,
+    "valorEnergetico": 32,
     "grasas": 0.3,
-    "hidratos_carbono": 7.7,
-    "fibra_alimentaria": 2.0,
+    "hidratosCarbono": 7.7,
+    "fibraAlimentaria": 2.0,
     "proteinas": 0.7,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 12,
     "nombre": "Pera de agua",
-    "valor_energetico": 50,
+    "valorEnergetico": 50,
     "grasas": 0.3,
-    "hidratos_carbono": 13,
-    "fibra_alimentaria": 2.3,
+    "hidratosCarbono": 13,
+    "fibraAlimentaria": 2.3,
     "proteinas": 0.5,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 13,
     "nombre": "Durazno",
-    "valor_energetico": 39,
+    "valorEnergetico": 39,
     "grasas": 0.3,
-    "hidratos_carbono": 9.5,
-    "fibra_alimentaria": 1.5,
+    "hidratosCarbono": 9.5,
+    "fibraAlimentaria": 1.5,
     "proteinas": 0.9,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 14,
     "nombre": "Piña",
-    "valor_energetico": 50,
+    "valorEnergetico": 50,
     "grasas": 0.1,
-    "hidratos_carbono": 13,
-    "fibra_alimentaria": 1.4,
+    "hidratosCarbono": 13,
+    "fibraAlimentaria": 1.4,
     "proteinas": 0.5,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 15,
     "nombre": "Acelga",
-    "valor_energetico": 19,
+    "valorEnergetico": 19,
     "grasas": 0.2,
-    "hidratos_carbono": 3.7,
-    "fibra_alimentaria": 2.1,
+    "hidratosCarbono": 3.7,
+    "fibraAlimentaria": 2.1,
     "proteinas": 1.8,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 16,
     "nombre": "Almendra",
-    "valor_energetico": 579,
+    "valorEnergetico": 579,
     "grasas": 49.9,
-    "hidratos_carbono": 21.6,
-    "fibra_alimentaria": 12.2,
+    "hidratosCarbono": 21.6,
+    "fibraAlimentaria": 12.2,
     "proteinas": 21.2,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 17,
     "nombre": "Castaña",
-    "valor_energetico": 196,
+    "valorEnergetico": 196,
     "grasas": 1.6,
-    "hidratos_carbono": 45.5,
-    "fibra_alimentaria": 8.1,
+    "hidratosCarbono": 45.5,
+    "fibraAlimentaria": 8.1,
     "proteinas": 4.3,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 18,
     "nombre": "Nuez",
-    "valor_energetico": 654,
+    "valorEnergetico": 654,
     "grasas": 60.8,
-    "hidratos_carbono": 13.7,
-    "fibra_alimentaria": 6.7,
+    "hidratosCarbono": 13.7,
+    "fibraAlimentaria": 6.7,
     "proteinas": 15.2,
-    "sal": 0.01
+    "sal": 0.01,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 19,
     "nombre": "Acelga",
-    "valor_energetico": 19,
+    "valorEnergetico": 19,
     "grasas": 0.2,
-    "hidratos_carbono": 3.7,
-    "fibra_alimentaria": 2.1,
+    "hidratosCarbono": 3.7,
+    "fibraAlimentaria": 2.1,
     "proteinas": 1.8,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 20,
     "nombre": "Espinaca",
-    "valor_energetico": 23,
+    "valorEnergetico": 23,
     "grasas": 0.4,
-    "hidratos_carbono": 3.6,
-    "fibra_alimentaria": 2.2,
+    "hidratosCarbono": 3.6,
+    "fibraAlimentaria": 2.2,
     "proteinas": 2.9,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 21,
     "nombre": "Repollo",
-    "valor_energetico": 25,
+    "valorEnergetico": 25,
     "grasas": 0.1,
-    "hidratos_carbono": 5.8,
-    "fibra_alimentaria": 2.6,
+    "hidratosCarbono": 5.8,
+    "fibraAlimentaria": 2.6,
     "proteinas": 1.8,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 22,
     "nombre": "Brócoli",
-    "valor_energetico": 34,
+    "valorEnergetico": 34,
     "grasas": 0.4,
-    "hidratos_carbono": 6.6,
-    "fibra_alimentaria": 2.6,
+    "hidratosCarbono": 6.6,
+    "fibraAlimentaria": 2.6,
     "proteinas": 2.8,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 23,
     "nombre": "Col rizada",
-    "valor_energetico": 49,
+    "valorEnergetico": 49,
     "grasas": 0.9,
-    "hidratos_carbono": 9.2,
-    "fibra_alimentaria": 3.6,
+    "hidratosCarbono": 9.2,
+    "fibraAlimentaria": 3.6,
     "proteinas": 4.3,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 24,
     "nombre": "Coliflor",
-    "valor_energetico": 25,
+    "valorEnergetico": 25,
     "grasas": 0.3,
-    "hidratos_carbono": 5,
-    "fibra_alimentaria": 2.0,
+    "hidratosCarbono": 5,
+    "fibraAlimentaria": 2.0,
     "proteinas": 1.9,
-    "sal": 0.02
+    "sal": 0.02,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 25,
     "nombre": "Pechuga de pollo",
-    "valor_energetico": 165,
+    "valorEnergetico": 165,
     "grasas": 3.6,
-    "hidratos_carbono": 0,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 0,
+    "fibraAlimentaria": 0,
     "proteinas": 31.0,
-    "sal": 0.05
+    "sal": 0.05,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 26,
     "nombre": "Salmón",
-    "valor_energetico": 208,
+    "valorEnergetico": 208,
     "grasas": 13.0,
-    "hidratos_carbono": 0,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 0,
+    "fibraAlimentaria": 0,
     "proteinas": 22.0,
-    "sal": 0.07
+    "sal": 0.07,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 27,
     "nombre": "Atún",
-    "valor_energetico": 132,
+    "valorEnergetico": 132,
     "grasas": 1.3,
-    "hidratos_carbono": 0,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 0,
+    "fibraAlimentaria": 0,
     "proteinas": 28.0,
-    "sal": 0.03
+    "sal": 0.03,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 28,
     "nombre": "Jamón serrano",
-    "valor_energetico": 241,
+    "valorEnergetico": 241,
     "grasas": 14.0,
-    "hidratos_carbono": 0,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 0,
+    "fibraAlimentaria": 0,
     "proteinas": 28.0,
-    "sal": 1.5
+    "sal": 1.5,
+    "supermercado": ["Mercadona", "Carrefour"]
   },
   {
     "id": 29,
     "nombre": "Bacon",
-    "valor_energetico": 541,
+    "valorEnergetico": 541,
     "grasas": 42.0,
-    "hidratos_carbono": 1.4,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 1.4,
+    "fibraAlimentaria": 0,
     "proteinas": 37.0,
-    "sal": 1.5
+    "sal": 1.5,
+    "supermercado": ["Lidl", "Dia"]
   },
   {
     "id": 30,
     "nombre": "Lomo embuchado",
-    "valor_energetico": 229,
+    "valorEnergetico": 229,
     "grasas": 13.0,
-    "hidratos_carbono": 0.5,
-    "fibra_alimentaria": 0,
+    "hidratosCarbono": 0.5,
+    "fibraAlimentaria": 0,
     "proteinas": 29.0,
-    "sal": 1.4
+    "sal": 1.4,
+    "supermercado": ["Mercadona", "Carrefour"]
   }
 ]

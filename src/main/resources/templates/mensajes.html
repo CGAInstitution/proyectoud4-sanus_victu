@@ -68,7 +68,7 @@
     </div>
 
     <div class="input-container">
-        <form th:action="@{/usuarios/{id1}/mensaje/{persona2}/{id2}/enviarMensaje(id1=${id1}, persona2=${persona2}, id2=${destinatarioId})}" method="post">
+        <form th:action="@{/{persona1}/{id1}/mensaje/{persona2}/{id2}/enviarMensaje(persona1=${persona1}, id1=${id1}, persona2=${persona2}, id2=${id2})}" method="post">
             <input type="text" name="texto" placeholder="Escribe tu mensaje..." required>
             <button type="submit">Enviar</button>
         </form>

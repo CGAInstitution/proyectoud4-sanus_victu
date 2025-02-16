@@ -26,11 +26,18 @@ public class UsuarioService {
 
 
     // Obtener todos los usuarios
+    @Transactional
     public List<Usuario> obtenerTodos() {
         return usre.findAll();
     }
 
+    @Transactional
+    public Optional<Usuario> buscarPorId(Long id) {
+        return usre.findById(id);
+    }
+
     // Eliminar un usuario por ID
+    @Transactional
     public void eliminar(Long id) {
         usre.deleteById(id);
     }
@@ -64,5 +71,11 @@ public class UsuarioService {
         }
     }
 
+    @Transactional
+    public List<Usuario> obtenerUsuariosPorNutricionista(Long id_nutricionista) {
+        // Buscar todos los usuarios asociados al nutricionista
+        List<Usuario> usuarios = usre.findByNutricionistaId(id_nutricionista);
+        return usuarios;
+    }
 }
 

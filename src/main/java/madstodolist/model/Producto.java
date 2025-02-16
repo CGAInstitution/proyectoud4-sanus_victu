@@ -9,8 +9,9 @@ import java.util.Set;
 @Table(name = "productos")
 public class Producto implements Serializable {
     @Id
-    @Column(name = "Id_producto")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -36,11 +37,19 @@ public class Producto implements Serializable {
     @Column(name = "fecha", nullable = true)
     private String fecha;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Producto_Supermercado> productoSupermercados = new HashSet<>();
+    @ManyToMany(mappedBy = "productos")
+    private Set<Dieta> dietas = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "producto_supermercado",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "supermercado_id")
+    )
+    private Set<Supermercado> supermercados = new HashSet<>();
 
     // Constructores
-    public Producto(String id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
+    public Producto(Long id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
         this.id = id;
         this.nombre = nombre;
         this.grasas = grasas;
@@ -55,8 +64,8 @@ public class Producto implements Serializable {
     public Producto() {}
 
     // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -79,6 +88,9 @@ public class Producto implements Serializable {
     public float getSal() { return sal; }
     public void setSal(float sal) { this.sal = sal; }
 
-    public Set<Producto_Supermercado> getProductoSupermercados() { return productoSupermercados; }
-    public void setProductoSupermercados(Set<Producto_Supermercado> productoSupermercados) { this.productoSupermercados = productoSupermercados; }
+    public Set<Dieta> getDietas() { return dietas; }
+    public void setDietas(Set<Dieta> dietas) { this.dietas = dietas; }
+
+    public Set<Supermercado> getSupermercados() { return supermercados; }
+    public void setSupermercados(Set<Supermercado> supermercados) { this.supermercados = supermercados; }
 }
