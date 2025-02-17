@@ -7,6 +7,7 @@
     <title>Lista de Productos</title>
 </head>
 <body>
+<div th:replace="__header :: body"></div>
 <h1>Lista de Productos</h1>
 <div class="buttons">
     <a th:href="@{/administracion/{id}/registrarProducto(id=${adminId})}" class="button">Registrar Producto</a>

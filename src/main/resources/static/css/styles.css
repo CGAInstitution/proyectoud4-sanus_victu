@@ -164,12 +164,16 @@ select {
 
 /* Estilo para el contenedor del chat */
 .chat-container {
-    width: 380px;
-    height: 650px;
+    max-width: 700px;
+    max-height: 650px;
     background-color: #fff;
     margin: 20px auto;
     border-radius: 10px;
+    overflow-y: scroll;
+
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
 }
