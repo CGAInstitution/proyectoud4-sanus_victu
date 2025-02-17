@@ -3,24 +3,29 @@
 <head>
     <title>Header</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
-<div th:fragment="body" class="">
+<div th:fragment="body">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="/img/logo.png" alt="sanusVictus" width="100px" height="">
+        <!-- Enlace dinámico según el tipo de usuario -->
+        <a class="navbar-brand" th:href="@{
+            ${session.tipoUsuario == 'ADMIN'} ? /administracion/' + ${session.idUsuario} + '/panel' :
+            (${session.tipoUsuario == 'NUTRICIONISTA'} ? '/nutricionista/' + ${session.idUsuario} + '/inicio' :
+            '/usuarios/' + ${session.idUsuario} + '/inicio')
+        }">
+            <img src="/img/logo.png" alt="sanusVictus" width="100px">
         </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse ml-5 collapse" id="navbarNav" style="display: flex; justify-content: space-between;width: 100%;">
-            <ul class="navbar-nav" style="justify-content: end;width: 100%;">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Cerrar sesion</a>
-                </li>
 
+        <div class="navbar-collapse ml-5 collapse" id="navbarNav" style="display: flex; justify-content: space-between; width: 100%;">
+            <ul class="navbar-nav" style="justify-content: end; width: 100%;">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+                </li>
             </ul>
         </div>
     </nav>
