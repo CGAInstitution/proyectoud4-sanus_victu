@@ -2,9 +2,11 @@ package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 
+import madstodolist.model.Nutricionista;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
+import madstodolist.service.NutricionistaService;
 import madstodolist.service.ProductoService;
 import madstodolist.service.SupermercadoService;
 import madstodolist.service.UsuarioService;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -26,8 +29,9 @@ public class UsuarioController {
     @Autowired
     private ManagerUserSession managerUserSession;
     @Autowired
-
     private ProductoService productoService;
+    @Autowired
+    private NutricionistaService nutricionistaService;
     @Autowired
     private SupermercadoService supermercadoService;
 
@@ -71,4 +75,10 @@ public class UsuarioController {
         model.addAttribute("idUsuario", id);
         return "newDieta";
     }
+
+    @PostMapping("/newDieta/añadirProducto")
+    public String registrarProducto(@PathVariable Long id, Model model) {
+        return "newDieta";
+    }
+
 }
