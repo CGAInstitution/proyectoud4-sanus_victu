@@ -56,10 +56,10 @@
             <input id="sal" class="form-control" name="sal" placeholder="Cantidad de sal" type="number" step="0.01" th:field="${producto.sal}" min="0" required/>
           </div>
           <div>
-            <select th:name="supermercadoId">
-              <option value="">Selecciona un supermercado</option>
-              <option th:each="supermercado : ${supermercados}" th:value="${supermercado.id}" th:text="${supermercado.nombre}"></option>
-            </select>
+            <label><input type="checkbox" name="diasSeleccionados" value="Mercadona" /> Mercadona</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Lidl" /> Lidl</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Dia" /> Dia</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Carrefour" /> Carrefour</label>
           </div>
 
 
