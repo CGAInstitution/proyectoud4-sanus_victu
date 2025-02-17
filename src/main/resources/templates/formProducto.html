@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Producto</title>
+  <th:block th:replace="fragments.html :: head(titulo='Registrar Producto')"></th:block>
+</head>
+
+<body>
+<div class="container-fluid">
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-auto">
+      <h2>Registrar Nuevo Producto</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="form-container">
+        <form method="post" th:action="@{/registroProducto}" th:object="${producto}">
+          <div class="form-group">
+            <label for="nombre">Nombre del Producto</label>
+            <input id="nombre" class="form-control" name="nombre" placeholder="Nombre del producto" type="text" th:field="${producto.nombre}" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="valor_energetico">Valor Energético (kcal)</label>
+            <input id="valor_energetico" class="form-control" name="valor_energetico" placeholder="Valor energético" type="number" th:field="${producto.valor_energetico}" min="0" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="grasas">Grasas (g)</label>
+            <input id="grasas" class="form-control" name="grasas" placeholder="Cantidad de grasas" type="number" step="0.01" th:field="${producto.grasas}" min="0" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="hidratos_carbono">Hidratos de Carbono (g)</label>
+            <input id="hidratos_carbono" class="form-control" name="hidratos_carbono" placeholder="Cantidad de hidratos de carbono" type="number" step="0.01" th:field="${producto.hidratos_carbono}" min="0" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="fibra_alimentaria">Fibra Alimentaria (g)</label>
+            <input id="fibra_alimentaria" class="form-control" name="fibra_alimentaria" placeholder="Cantidad de fibra alimentaria" type="number" step="0.01" th:field="${producto.fibra_alimentaria}" min="0" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="proteinas">Proteínas (g)</label>
+            <input id="proteinas" class="form-control" name="proteinas" placeholder="Cantidad de proteínas" type="number" step="0.01" th:field="${producto.proteinas}" min="0" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="sal">Sal (g)</label>
+            <input id="sal" class="form-control" name="sal" placeholder="Cantidad de sal" type="number" step="0.01" th:field="${producto.sal}" min="0" required/>
+          </div>
+          <div>
+            <label><input type="checkbox" name="diasSeleccionados" value="Mercadona" /> Mercadona</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Lidl" /> Lidl</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Dia" /> Dia</label>
+            <label><input type="checkbox" name="diasSeleccionados" value="Carrefour" /> Carrefour</label>
+          </div>
+
+
+          <button type="submit" class="btn btn-primary">Registrar Producto</button>
+          <a class="btn btn-link" href="/productos">Ver Productos</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments::javascript"/>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<th:block th:replace="fragments.html :: javascript"></th:block>
+</body>
+
+</html>

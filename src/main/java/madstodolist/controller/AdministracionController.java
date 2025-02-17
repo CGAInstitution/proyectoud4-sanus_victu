@@ -69,4 +69,21 @@ public class AdministracionController {
         model.addAttribute("adminId", id);
         return "listProductos";
     }
+    @GetMapping("/registrarProducto")
+    public String mostrarFormularioRegistroProducto(@PathVariable Long id, Model model) {
+        model.addAttribute("producto", new Producto());
+        model.addAttribute("adminId", id);
+        return "formProducto";
+    }
+
+    @PostMapping("/registrarProducto")
+    public String registrarProducto(@PathVariable Long id, @ModelAttribute Producto producto, Model model,
+                                    @RequestParam String nombre, @RequestParam float valor_energetico,
+                                    @RequestParam float grasas, @RequestParam float hidratos_carbono,
+                                    @RequestParam float fibra_alimentaria, @RequestParam float proteinas,
+                                    @RequestParam float sal ) {
+        producto_supermercadoService.guardarProducto(producto);
+        return "redirect:/administracion/" + id + "/listaProductos";
+    }
+
 }

@@ -70,4 +70,7 @@ public class Producto_SupermercadoService {
         List supermercados = supermercadoRepository.findAll();
         return supermercados;
     }
+    public void guardarProducto(Producto producto) {
+        productoRepository.save(producto);
+    }
 }
