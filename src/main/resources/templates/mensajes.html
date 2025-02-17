@@ -5,66 +5,47 @@
     <th:block th:replace="fragments.html :: head(titulo='Mensajes')"></th:block>
     <title>Mensajes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+        /* Contenedor principal */
         .chat-container {
-            display: flex;
-            flex-direction: column;
-            max-width: 800px;
-            margin: auto;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 16px;
-            background: #f9f9f9;
         }
-        .message {
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-        }
-        .received {
-            background-color: #e3f2fd;
-            align-self: flex-start;
-        }
-        .sent {
-            background-color: #c8e6c9;
-            align-self: flex-end;
-        }
+
+
+
+        /* Formulario en la parte inferior */
         .input-container {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 10px;
+            width: 100%;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container form {
             display: flex;
-            margin-top: 20px;
+            justify-content: space-between;
         }
+
         .input-container input {
-            flex: 1;
+            width: 80%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
         }
+
         .input-container button {
+            width: 18%;
             padding: 10px;
-            margin-left: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .input-container button:hover {
-            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-
+<div th:replace="__header :: body"></div>
 <div class="chat-container">
     <h1>Mensajes</h1>
 
     <div th:each="mensaje : ${mensajes}" class="message"
-         th:class="${mensaje.remitente.id == idUsuario} ? 'sent' : 'received'">
-        <strong th:text="${mensaje.remitente.nombre}"></strong>
-        <p th:text="${mensaje.texto}"></p>
-        <small th:text="${#dates.format(mensaje.hora, 'dd/MM/yyyy HH:mm')}"></small>
+         th:class="${mensaje.remitente.id == idUsuario} ? 'sent' : 'received pr-5 d-flex flex-column align-items-end border-bottom border-top py-2'">
+        <span><strong th:text="${mensaje.remitente.nombre}" class="pr-2"></strong><small th:text="${#dates.format(mensaje.hora, 'dd/MM/yyyy HH:mm')}"></small></span>
+        <span th:text="${mensaje.texto} + '   < '" ></span>
     </div>
 
     <div class="input-container">
