@@ -1,6 +1,7 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
@@ -25,10 +26,10 @@ public class UsuarioController {
     @Autowired
     private ManagerUserSession managerUserSession;
     @Autowired
+
     private ProductoService productoService;
     @Autowired
     private SupermercadoService supermercadoService;
-
 
     @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
@@ -46,6 +47,9 @@ public class UsuarioController {
         Long idNutricionista = usuario.getNutricionista().getId();
         model.addAttribute("idUsuario", id);
         model.addAttribute("idNutricionista", idNutricionista);
+
+        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
+        model.addAttribute("nutricionistas", nutricionistas);
 
         return "formUsuario";
     }
