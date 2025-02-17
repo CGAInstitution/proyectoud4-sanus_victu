@@ -27,6 +27,7 @@ public class LoginController {
 
     @Autowired
     ManagerUserSession managerUserSession;
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -42,51 +43,23 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute LoginData loginData, Model model, HttpSession session) {
-        // Llamada al servicio para comprobar si el login es correcto
+    public String loginSubmit(@ModelAttribute LoginData loginData, Model model) {
         LoginResponse loginResponse = personaService.login(loginData.geteMail(), loginData.getPassword());
-
-        System.out.println("Estado del login: " + loginResponse.getStatus());
 
         if (loginResponse.getStatus() == PersonaService.LoginStatus.LOGIN_OK) {
             PersonaData persona = personaService.findByEmail(loginData.geteMail());
-
-            if (persona == null) {
-                System.out.println("❌ ERROR: No se encontró la persona en la base de datos.");
-                model.addAttribute("error", "Error al recuperar usuario.");
-                return "formLogin";
-            }
-
-            System.out.println("✅ Usuario encontrado: " + persona.getId());
             managerUserSession.logearPersona(persona.getId());
 
-            // Verificamos que el ID se guardó en la sesión
-            Long idEnSesion = managerUserSession.personaLogeado();
-            System.out.println("📝 ID guardado en sesión: " + idEnSesion);
-
-            if (idEnSesion == null) {
-                System.out.println("❌ ERROR: El ID de sesión es NULL.");
-                model.addAttribute("error", "Error de sesión.");
-                return "formLogin";
-            }
-
-            // Redirección según el tipo de persona
-            System.out.println("🔄 Redirigiendo a: " + loginResponse.getRedirectUrl());
             return "redirect:" + loginResponse.getRedirectUrl();
         }
 
-        if (loginResponse.getStatus() == PersonaService.LoginStatus.USER_NOT_FOUND) {
-            model.addAttribute("error", "No existe usuario");
-            return "formLogin";
-        }
-
-        if (loginResponse.getStatus() == PersonaService.LoginStatus.ERROR_PASSWORD) {
-            model.addAttribute("error", "Contraseña incorrecta");
-            return "formLogin";
-        }
+        model.addAttribute("error", loginResponse.getStatus() == PersonaService.LoginStatus.USER_NOT_FOUND
+                ? "No existe usuario"
+                : "Contraseña incorrecta");
 
         return "formLogin";
     }
+
 
 
     @GetMapping("/registro")
@@ -120,7 +93,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout() {
         managerUserSession.logout();
         return "redirect:/login";
     }
