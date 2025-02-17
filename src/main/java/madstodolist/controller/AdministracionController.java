@@ -1,13 +1,9 @@
 package madstodolist.controller;
 
-import madstodolist.model.Nutricionista;
+import madstodolist.authentication.ManagerUserSession;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
-import madstodolist.model.Usuario;
-import madstodolist.service.InitDbService;
-import madstodolist.service.NutricionistaService;
-import madstodolist.service.Producto_SupermercadoService;
-import madstodolist.service.UsuarioService;
+import madstodolist.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,36 +20,46 @@ public class AdministracionController {
     @Autowired
     private NutricionistaService nutricionistaService;
     @Autowired
-    private Producto_SupermercadoService producto_supermercadoService;
+    private ProductoService productoService;
+    @Autowired
+    private SupermercadoService supermercadoService;
     @Autowired
     private InitDbService initDbService;
+    @Autowired
+    private ManagerUserSession managerUserSession;
+
+    private boolean validarAcceso(Long id) {
+        Long idSesion = managerUserSession.personaLogeado();
+        return idSesion != null && idSesion.equals(id);
+    }
 
     @GetMapping("/panel")
     public String administracion(@PathVariable Long id, Model model) {
+        if (!validarAcceso(id)) return "redirect:/login";
         model.addAttribute("adminId", id);
         return "administracion";
     }
 
     @GetMapping("/listaUsuarios")
     public String listarUsuarios(@PathVariable Long id, Model model) {
-        List<Usuario> usuarios = usuarioService.obtenerTodos();
-        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
-        model.addAttribute("nutricionistas", nutricionistas);
-        model.addAttribute("usuarios", usuarios);
+        if (!validarAcceso(id)) return "redirect:/login";
+        model.addAttribute("usuarios", usuarioService.obtenerTodos());
+        model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
         model.addAttribute("adminId", id);
         return "listUsuarios";
     }
 
     @PostMapping("/listaUsuarios/eliminar/{userId}")
     public String eliminarUsuario(@PathVariable Long id, @PathVariable Long userId) {
+        if (!validarAcceso(id)) return "redirect:/login";
         usuarioService.eliminar(userId);
         return "redirect:/administracion/" + id + "/listaUsuarios";
     }
 
     @GetMapping("/listaNutricionistas")
     public String listarNutricionistas(@PathVariable Long id, Model model) {
-        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
-        model.addAttribute("nutricionistas", nutricionistas);
+        if (!validarAcceso(id)) return "redirect:/login";
+        model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
         model.addAttribute("adminId", id);
         return "listNutricionistas";
     }
@@ -67,13 +73,14 @@ public class AdministracionController {
 
     @GetMapping("/listaProductos")
     public String listarProductos(@PathVariable Long id, Model model) {
-        List<Producto> productos = producto_supermercadoService.obtenerTodosProductos();
-        List<Supermercado> supermercados = producto_supermercadoService.obtenerTodosSupermercados();
+        List<Producto> productos = productoService.obtenerTodosProductos();
+        List<Supermercado> supermercados = supermercadoService.obtenerTodosSupermercados();
         model.addAttribute("supermercados", supermercados);
         model.addAttribute("productos", productos);
         model.addAttribute("adminId", id);
         return "listProductos";
     }
+
     @GetMapping("/registrarProducto")
     public String mostrarFormularioRegistroProducto(@PathVariable Long id, Model model) {
         model.addAttribute("producto", new Producto());
@@ -87,7 +94,7 @@ public class AdministracionController {
                                     @RequestParam float grasas, @RequestParam float hidratos_carbono,
                                     @RequestParam float fibra_alimentaria, @RequestParam float proteinas,
                                     @RequestParam float sal ) {
-        producto_supermercadoService.guardarProducto(producto);
+        productoService.guardarProducto(producto);
         return "redirect:/administracion/" + id + "/listaProductos";
     }
 

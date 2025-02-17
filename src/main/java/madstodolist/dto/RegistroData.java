@@ -3,7 +3,6 @@ package madstodolist.dto;
 import javax.validation.constraints.Email;
 import java.util.Date;
 
-// Clase de datos para el formulario de registro
 public class RegistroData {
     @Email
     private String correo;
@@ -14,7 +13,6 @@ public class RegistroData {
     private String sexo;
 
     //Getters & Setters
-
 
     public @Email String getCorreo() {return correo;}
     public void setCorreo(@Email String correo) {this.correo = correo;}

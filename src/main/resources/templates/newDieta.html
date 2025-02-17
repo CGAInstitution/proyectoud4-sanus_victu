@@ -67,7 +67,7 @@
 <div class="productos-lista">
   <h3>Selecciona los productos</h3>
   <ul>
-    <li th:each="producto : ${productos}" th:text="${producto.nombre}">
+    <li th:each="producto : ${productos}">
       <input type="checkbox" name="productosSeleccionados" th:value="${producto.id}" />
       <span th:text="${producto.nombre}"></span>
     </li>
