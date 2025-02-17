@@ -1,8 +1,11 @@
 package madstodolist.controller;
 
 import madstodolist.model.Nutricionista;
+import madstodolist.model.Producto;
+import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
 import madstodolist.service.NutricionistaService;
+import madstodolist.service.Producto_SupermercadoService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ public class AdministracionController {
     private UsuarioService usuarioService;
     @Autowired
     private NutricionistaService nutricionistaService;
+    @Autowired
+    private Producto_SupermercadoService producto_supermercadoService;
 
     @GetMapping("/panel")
     public String administracion(@PathVariable Long id, Model model) {
@@ -53,5 +58,15 @@ public class AdministracionController {
         usuarioService.desvincularNutricionista(nutriId);
         nutricionistaService.eliminar(nutriId);
         return "redirect:/administracion/" + id + "/listaNutricionistas";
+    }
+
+    @GetMapping("/listaProductos")
+    public String listarProductos(@PathVariable Long id, Model model) {
+        List<Producto> productos = producto_supermercadoService.obtenerTodosProductos();
+        List<Supermercado> supermercados = producto_supermercadoService.obtenerTodosSupermercados();
+        model.addAttribute("supermercados", supermercados);
+        model.addAttribute("productos", productos);
+        model.addAttribute("adminId", id);
+        return "listProductos";
     }
 }

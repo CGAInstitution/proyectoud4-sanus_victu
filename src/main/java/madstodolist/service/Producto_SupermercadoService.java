@@ -3,6 +3,7 @@ package madstodolist.service;
 import madstodolist.dto.ProductoData;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
+import madstodolist.repository.productoRepository;
 import madstodolist.repository.supermercadoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class Producto_SupermercadoService {
 
     @Autowired
     private supermercadoRepository supermercadoRepository;
+
+    @Autowired
+    private productoRepository productoRepository;
 
     // Método para cargar productos desde JSON y mapearlos a la entidad Producto
     public List<Producto> cargarYConvertirProductos() {
@@ -55,5 +59,15 @@ public class Producto_SupermercadoService {
                 .collect(Collectors.toList());
 
         return productos;
+    }
+
+    public List<Producto> obtenerTodosProductos() {
+        List productos = productoRepository.findAll();
+        return productos;
+    }
+
+    public List<Supermercado> obtenerTodosSupermercados() {
+        List supermercados = supermercadoRepository.findAll();
+        return supermercados;
     }
 }

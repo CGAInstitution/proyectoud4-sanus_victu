@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface dietaRepository extends JpaRepository<Dieta, Integer> {
+public interface dietaRepository extends JpaRepository<Dieta, Long> {
 }

@@ -8,6 +8,10 @@
 </head>
 <body>
 <h1>Lista de Productos</h1>
+<select th:name="supermercadoId">
+    <option value="">Selecciona un supermercado</option>
+    <option th:each="supermercado : ${supermercados}" th:value="${supermercado.id}" th:text="${supermercado.nombre}"></option>
+</select>
 <table>
     <thead>
     <tr>
@@ -19,6 +23,7 @@
         <th>Fibra Alimentaria</th>
         <th>Proteínas</th>
         <th>Sal</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -31,6 +36,14 @@
         <td th:text="${producto.fibra_alimentaria}"></td>
         <td th:text="${producto.proteinas}"></td>
         <td th:text="${producto.sal}"></td>
+        <td>
+            <a th:href="@{/producto/editar/{id}(id=${producto.id})}">
+                <button type="button">Modificar</button>
+            </a>
+            <form th:action="@{/producto/borrar/{id}(id=${producto.id})}" method="post">
+                <button type="submit" >Borrar</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
