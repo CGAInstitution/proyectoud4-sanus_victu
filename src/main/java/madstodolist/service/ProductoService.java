@@ -64,4 +64,9 @@ public class ProductoService {
     public Producto guardarProducto(Producto producto) {
         return productoRepository.save(producto);
     }
+
+    @Transactional
+    public void guardarProductos(List<Producto> productos) {
+       productoRepository.saveAll(productos);
+    }
 }

@@ -6,6 +6,7 @@ import madstodolist.dto.LoginData;
 import madstodolist.dto.RegistroData;
 import madstodolist.dto.PersonaData;
 import madstodolist.dto.UsuarioData;
+import madstodolist.service.InitDbService;
 import madstodolist.service.PersonaService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class LoginController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private InitDbService initDbService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -64,6 +68,11 @@ public class LoginController {
         return "formLogin";
     }
 
+    @GetMapping("/registro")
+    public String registroForm(Model model) {
+        model.addAttribute("registroData", new RegistroData());
+        return "formRegistro";
+    }
 
     @PostMapping("/registro")
     public String registroSubmit(@Valid RegistroData registroData, BindingResult result, Model model) {

@@ -42,16 +42,15 @@ public class AdministracionController {
 
     @GetMapping("/listaUsuarios")
     public String listarUsuarios(@PathVariable Long id, Model model) {
-        if (!validarAcceso(id)) return "redirect:/login";
-        model.addAttribute("usuarios", usuarioService.obtenerTodos());
+        if (!validarAcceso(id)) return "redirect:/login"; // Validación de acceso
+        model.addAttribute("usuarios", usuarioService.obtenerTodos()); // Asegúrate de que esto devuelva una lista válida
         model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
         model.addAttribute("adminId", id);
-        return "listUsuarios";
+        return "listUsuarios"; // Asegúrate de que esta vista exista
     }
 
     @PostMapping("/listaUsuarios/eliminar/{userId}")
     public String eliminarUsuario(@PathVariable Long id, @PathVariable Long userId) {
-        if (!validarAcceso(id)) return "redirect:/login";
         usuarioService.eliminar(userId);
         return "redirect:/administracion/" + id + "/listaUsuarios";
     }
