@@ -55,6 +55,14 @@
 </div>
 
 <!-- Lista de productos seleccionables -->
+<div>
+
+  <select th:name="supermercadoId">
+    <option value="">Selecciona un supermercado</option>
+    <option th:each="supermercado : ${supermercados}" th:value="${supermercado.id}" th:text="${supermercado.nombre}"></option>
+  </select>
+
+</div>
 <div class="productos-lista">
   <h3>Selecciona los productos</h3>
   <ul>

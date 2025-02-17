@@ -1,7 +1,9 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
+import madstodolist.service.Producto_SupermercadoService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/usuarios/{id}")
@@ -19,6 +23,8 @@ public class UsuarioController {
 
     @Autowired
     private ManagerUserSession managerUserSession;
+    @Autowired
+    private Producto_SupermercadoService producto_supermercadoService;
 
     @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
@@ -42,6 +48,9 @@ public class UsuarioController {
 
     @GetMapping("/newDieta")
     public String mostrarNuevaDieta(@PathVariable Long id, Model model) {
+
+        List<Supermercado> supermercados = producto_supermercadoService.obtenerTodosSupermercados();
+        model.addAttribute("supermercados", supermercados);
         Long idSesion = managerUserSession.personaLogeado();
 
         if (idSesion == null || !idSesion.equals(id)) {
