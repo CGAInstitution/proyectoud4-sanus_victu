@@ -5,8 +5,8 @@ import madstodolist.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,9 +39,9 @@ public class InitDbService {
     private usuarioRepository usuarioRepository;
 
     @Autowired
-    private Producto_SupermercadoService productoSupermercadoService;
+    private ProductoService productoSupermercadoService;
 
-
+    @Transactional
     public void delectDatabase() {
         personaRepository.deleteAll();
         productoRepository.deleteAll();
@@ -53,7 +53,7 @@ public class InitDbService {
 
     }
 
-
+    @Transactional
     public void initDatabase() {
         // Creación del administrador con sus datos
         Administrador admin = new Administrador();
@@ -122,6 +122,7 @@ public class InitDbService {
         // Cargar y guardar productos desde el JSON
         cargarYGuardarProductos();
     }
+
 
     private void cargarYGuardarProductos() {
         // Obtener la lista de productos desde el JSON

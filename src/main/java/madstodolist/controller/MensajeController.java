@@ -21,30 +21,35 @@ public class MensajeController {
 
     @Autowired
     private MensajeService mensajeService;
+    @Autowired
+    private ManagerUserSession managerUserSession;
 
 
     @GetMapping("/{persona2}/{id2}")
     public String mensaje(@PathVariable String persona1, @PathVariable Long id1,
                           @PathVariable String persona2, @PathVariable Long id2,
                           Model model) {
-        // Obtener los mensajes entre las dos personas
-        Optional<List<Mensaje>> mensajesOpt = mensajeService.obtenerMensajes(id1, id2);
-        mensajesOpt.ifPresent(mensajes -> model.addAttribute("mensajes", mensajes));
+        Long idSesion = managerUserSession.personaLogeado();
+        if (idSesion == null || !idSesion.equals(id1)) {
+            return "redirect:/login";
+        }
+            // Obtener los mensajes entre las dos personas
+            Optional<List<Mensaje>> mensajesOpt = mensajeService.obtenerMensajes(id1, id2);
+            mensajesOpt.ifPresent(mensajes -> model.addAttribute("mensajes", mensajes));
+            return "mensajes";
+        }
 
-        return "mensajes";
-    }
+        @PostMapping("/{persona2}/{id2}/enviarMensaje")
+        public String enviarMensaje (@RequestParam String texto,
+                @PathVariable String persona1,
+                @PathVariable Long id1,
+                @PathVariable String persona2,
+                @PathVariable Long id2){
+            // Crear y guardar el mensaje
+            mensajeService.enviarMensaje(texto, id1, id2);
 
+            // Redirigir correctamente a la conversación
+            return "redirect:/" + persona1 + "/" + id1 + "/mensaje/" + persona2 + "/" + id2;
+        }
 
-    @PostMapping("/{persona2}/{id2}/enviarMensaje")
-    public String enviarMensaje(@RequestParam String texto,
-                                @PathVariable String persona1,
-                                @PathVariable Long id1,
-                                @PathVariable String persona2,
-                                @PathVariable Long id2) {
-        // Crear y guardar el mensaje
-        mensajeService.enviarMensaje(texto, id1, id2);
-
-        // Redirigir correctamente a la conversación
-        return "redirect:/" + persona1 + "/" + id1 + "/mensaje/" + persona2 + "/" + id2;
-    }
 }

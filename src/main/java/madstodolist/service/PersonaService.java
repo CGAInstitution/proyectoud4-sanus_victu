@@ -27,7 +27,7 @@ public class PersonaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public LoginResponse login(String correo, String contraseña) {
         Optional<Persona> persona = personaRepository.findByCorreo(correo);
         if (!persona.isPresent()) {
@@ -74,7 +74,7 @@ public class PersonaService {
 
 
 
-    @Transactional(readOnly = true)
+    @Transactional
     public PersonaData findByEmail(String email) {
         Persona persona = personaRepository.findByCorreo(email).orElse(null);
         if (persona == null) return null;
@@ -83,7 +83,7 @@ public class PersonaService {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Persona findById(Long personaId) {
         Persona persona = personaRepository.findById(personaId).orElse(null);
         if (persona == null) return null;

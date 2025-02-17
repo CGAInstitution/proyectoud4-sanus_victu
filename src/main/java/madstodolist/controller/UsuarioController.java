@@ -1,11 +1,12 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-import madstodolist.model.Nutricionista;
+
+import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
-import madstodolist.service.NutricionistaService;
-import madstodolist.service.Producto_SupermercadoService;
+import madstodolist.service.ProductoService;
+import madstodolist.service.SupermercadoService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,10 @@ public class UsuarioController {
     @Autowired
     private ManagerUserSession managerUserSession;
     @Autowired
-    private Producto_SupermercadoService producto_supermercadoService;
+
+    private ProductoService productoService;
     @Autowired
-    private NutricionistaService nutricionistaService;
+    private SupermercadoService supermercadoService;
 
     @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
@@ -54,9 +56,12 @@ public class UsuarioController {
 
     @GetMapping("/newDieta")
     public String mostrarNuevaDieta(@PathVariable Long id, Model model) {
+        List<Supermercado> supermercados = supermercadoService.obtenerTodosSupermercados();
+        List<Producto> productos = productoService.obtenerTodosProductos(); // Obtener todos los productos
 
-        List<Supermercado> supermercados = producto_supermercadoService.obtenerTodosSupermercados();
         model.addAttribute("supermercados", supermercados);
+        model.addAttribute("productos", productos); // Agregar la lista de productos al modelo
+
         Long idSesion = managerUserSession.personaLogeado();
 
         if (idSesion == null || !idSesion.equals(id)) {

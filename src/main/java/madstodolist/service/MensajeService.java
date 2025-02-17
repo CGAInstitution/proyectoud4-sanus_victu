@@ -4,6 +4,7 @@ import madstodolist.model.Mensaje;
 import madstodolist.repository.mensajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ public class MensajeService {
     private PersonaService personaService;
 
     // Método para obtener mensajes entre dos personas
+    @Transactional
     public Optional<List<Mensaje>> obtenerMensajes(Long id1, Long id2) {
         // Busca todos los mensajes y filtra por remitente y destinatario
         List<Mensaje> mensajes = mensajeRepo.findAll(); // Obtener todos los mensajes
@@ -32,6 +34,7 @@ public class MensajeService {
     }
 
     // Método para enviar un nuevo mensaje
+    @Transactional
     public void enviarMensaje(String texto, Long idRemitente, Long idDestinatario) {
         Mensaje nuevoMensaje = new Mensaje();
         nuevoMensaje.setTexto(texto);
