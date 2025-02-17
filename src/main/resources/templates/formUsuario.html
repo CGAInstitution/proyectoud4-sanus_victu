@@ -41,12 +41,26 @@
             </td>
             <td>
                 <button class="btn btn-success btn-sm">Marcar Favorito</button>
+                <button class="btn btn-success btn-sm">Modificar</button>
                 <button class="btn btn-danger btn-sm">Eliminar</button>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+<!-- Ventana emergente -->
+<div class="overlay" id="popup">
+    <div class="popup">
+        <h2>Cambiar nutricionista</h2>
+        <select th:name="nutricionistas">
+            <option value="">Selecciona un nutricionista</option>
+            <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}" th:text="${nutricionista.nombre}"></option>
+        </select>
+        <a href="#"><button id="delete" class="close-btn">Cerrar</button></a>
+        <a href="#"><button class="close-btn">Guardar</button></a>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

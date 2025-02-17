@@ -1,8 +1,10 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.model.Nutricionista;
 import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
+import madstodolist.service.NutricionistaService;
 import madstodolist.service.Producto_SupermercadoService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class UsuarioController {
     private ManagerUserSession managerUserSession;
     @Autowired
     private Producto_SupermercadoService producto_supermercadoService;
+    @Autowired
+    private NutricionistaService nutricionistaService;
 
     @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
@@ -41,6 +45,9 @@ public class UsuarioController {
         Long idNutricionista = usuario.getNutricionista().getId();
         model.addAttribute("idUsuario", id);
         model.addAttribute("idNutricionista", idNutricionista);
+
+        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
+        model.addAttribute("nutricionistas", nutricionistas);
 
         return "formUsuario";
     }
