@@ -43,12 +43,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute LoginData loginData, Model model) {
+    public String loginSubmit(@ModelAttribute LoginData loginData, Model model, HttpSession session) {
         LoginResponse loginResponse = personaService.login(loginData.geteMail(), loginData.getPassword());
 
         if (loginResponse.getStatus() == PersonaService.LoginStatus.LOGIN_OK) {
             PersonaData persona = personaService.findByEmail(loginData.geteMail());
             managerUserSession.logearPersona(persona.getId());
+
+            // Guardamos el tipo de usuario en la sesión
+            session.setAttribute("tipoUsuario", personaService.findByEmail(loginData.geteMail()));
+            session.setAttribute("idUsuario", persona.getId());
 
             return "redirect:" + loginResponse.getRedirectUrl();
         }
@@ -60,13 +64,6 @@ public class LoginController {
         return "formLogin";
     }
 
-
-
-    @GetMapping("/registro")
-    public String registroForm(Model model) {
-        model.addAttribute("registroData", new RegistroData());
-        return "formRegistro";
-    }
 
     @PostMapping("/registro")
     public String registroSubmit(@Valid RegistroData registroData, BindingResult result, Model model) {
