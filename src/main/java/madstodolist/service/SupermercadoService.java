@@ -41,4 +41,8 @@ public class SupermercadoService {
     public List<Supermercado> obtenerTodosSupermercados() {
         return supermercadoRepository.findAll();
     }
+    @Transactional
+    public void guardarSupermercados(Set<Supermercado> supermercados) {
+        supermercadoRepository.saveAll(supermercados);
+    }
 }
