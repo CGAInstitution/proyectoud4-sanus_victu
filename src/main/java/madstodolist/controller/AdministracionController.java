@@ -4,6 +4,7 @@ import madstodolist.model.Nutricionista;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
 import madstodolist.model.Usuario;
+import madstodolist.service.InitDbService;
 import madstodolist.service.NutricionistaService;
 import madstodolist.service.Producto_SupermercadoService;
 import madstodolist.service.UsuarioService;
@@ -24,6 +25,8 @@ public class AdministracionController {
     private NutricionistaService nutricionistaService;
     @Autowired
     private Producto_SupermercadoService producto_supermercadoService;
+    @Autowired
+    private InitDbService initDbService;
 
     @GetMapping("/panel")
     public String administracion(@PathVariable Long id, Model model) {
@@ -86,4 +89,10 @@ public class AdministracionController {
         return "redirect:/administracion/" + id + "/listaProductos";
     }
 
+    @PostMapping("/resetBD")
+    public String resetBD(@PathVariable Long id, Model model) {
+        initDbService.delectDatabase();
+        initDbService.initDatabase();
+        return "redirect:/administracion/" + id + "/panel";
+    }
 }
