@@ -29,14 +29,6 @@
             z-index: 2;
             min-width: 200px;
         }
-        .close-btn {
-            background-color: red;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
 
         /* Mostrar el popup cuando se active el :target */
         #popup:target {
@@ -82,18 +74,21 @@
         </td>
         <td>
             <!-- Enlace para abrir el popup -->
-            <a href="#popup"><button type="button">Ver Detalles</button></a>
+            <a href="#popup"><button type="button">Cambiar nutricionista</button></a>
         </td>
     </tr>
     </tbody>
 </table>
-
 <!-- Ventana emergente -->
 <div class="overlay" id="popup">
     <div class="popup">
-        <h2>Detalles del Usuario</h2>
-        <p>Información adicional sobre el usuario.</p>
-        <a href="#"><button class="close-btn">Cerrar</button></a>
+        <h2>Cambiar nutricionista</h2>
+        <select th:name="nutricionistas">
+            <option value="">Selecciona un nutricionista</option>
+            <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}" th:text="${nutricionista.nombre}"></option>
+        </select>
+        <a href="#"><button id="delete" class="close-btn">Cerrar</button></a>
+        <a href="#"><button class="close-btn">Guardar</button></a>
     </div>
 </div>
 

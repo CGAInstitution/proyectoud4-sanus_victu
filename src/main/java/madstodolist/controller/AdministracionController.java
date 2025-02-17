@@ -34,6 +34,8 @@ public class AdministracionController {
     @GetMapping("/listaUsuarios")
     public String listarUsuarios(@PathVariable Long id, Model model) {
         List<Usuario> usuarios = usuarioService.obtenerTodos();
+        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
+        model.addAttribute("nutricionistas", nutricionistas);
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("adminId", id);
         return "listUsuarios";
