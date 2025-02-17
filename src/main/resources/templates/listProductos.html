@@ -8,6 +8,10 @@
 </head>
 <body>
 <h1>Lista de Productos</h1>
+<div class="buttons">
+    <a th:href="@{/administracion/{id}/registrarProducto(id=${adminId})}" class="button">Registrar Producto</a>
+</div>
+
 <select th:name="supermercadoId">
     <option value="">Selecciona un supermercado</option>
     <option th:each="supermercado : ${supermercados}" th:value="${supermercado.id}" th:text="${supermercado.nombre}"></option>
