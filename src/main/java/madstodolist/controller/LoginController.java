@@ -51,7 +51,7 @@ public class LoginController {
             managerUserSession.logearPersona(persona.getId());
 
             // Guardamos el tipo de usuario en la sesión
-            session.setAttribute("tipoUsuario", personaService.findByEmail(loginData.geteMail()));
+            session.setAttribute("tipoUsuario", personaService.findById(managerUserSession.personaLogeado()).getTipoPersona());
             session.setAttribute("idUsuario", persona.getId());
 
             return "redirect:" + loginResponse.getRedirectUrl();
