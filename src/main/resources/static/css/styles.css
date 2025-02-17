@@ -115,7 +115,15 @@ input[type="submit"]:hover {
     background-color: #66BB6A;
 }
 
+#img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
 img {
+    display: block;
     max-width: 100%;
     height: auto;
     border-radius: 8px;
