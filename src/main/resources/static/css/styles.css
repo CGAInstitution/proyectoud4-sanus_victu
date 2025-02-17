@@ -264,6 +264,7 @@ select {
     background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
     z-index: 1;
 }
+
 .popup {
     position: fixed;
     top: 50%;
@@ -274,8 +275,56 @@ select {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 2;
-    min-width: 200px;
+    min-width: 300px; /* Asegúrate de que el pop-up tenga un ancho adecuado */
 }
+
+/* Agregar margen al título (h2) */
+.popup h2 {
+    margin-bottom: 15px; /* Espacio debajo del título */
+    font-size: 1.8em;
+    color: #388E3C;
+}
+
+/* Agregar margen al select */
+.popup select {
+    margin-bottom: 15px; /* Espacio debajo del select */
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* Agregar márgenes a los botones */
+.popup .close-btn {
+    margin-right: 10px; /* Espacio entre los botones */
+    background-color: #81C784;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.popup .close-btn:hover {
+    background-color: #66BB6A;
+}
+
+/* Espacio entre los botones */
+.popup a {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Agregar márgenes en el borde del pop-up */
+.popup {
+    margin: 0 auto;
+    min-width: 300px; /* Tamaño mínimo */
+    padding: 20px;
+    border-radius: 10px;
+}
+
 
 /* Mostrar el popup cuando se active el :target */
 #popup:target {
