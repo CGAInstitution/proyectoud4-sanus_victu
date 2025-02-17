@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:replace="fragments.html :: head(titulo='ListaUsuarios')"></th:block>
     <title>Lista de Usuarios</title>
+    <style>
+        /* Estilo para la ventana emergente (popup) */
+        .overlay {
+            display: none; /* Ocultar por defecto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+            z-index: 1;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            min-width: 200px;
+        }
+        .close-btn {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Mostrar el popup cuando se active el :target */
+        #popup:target {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="__header :: body"></div>
@@ -17,8 +55,10 @@
         <th>Peso</th>
         <th>Edad</th>
         <th>Sexo</th>
-        <th>Acciones</th>
-        <th>Mensajes</th> <!-- Nueva columna para los mensajes -->
+        <th>Nutricionista</th>
+        <th>Eliminar</th>
+        <th>Mensajes</th>
+        <th>Modificar</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +68,8 @@
         <td th:text="${usuario.peso}"></td>
         <td th:text="${usuario.edad}"></td>
         <td th:text="${usuario.sexo}"></td>
+        <td th:text="${usuario.nutricionista.getNombre()}"></td>
+
         <td>
             <form th:action="@{/administracion/{adminId}/listaUsuarios/eliminar/{userId}(adminId=${adminId}, userId=${usuario.id})}" method="post">
                 <button id="delete" type="submit">Eliminar</button>
@@ -38,8 +80,22 @@
                 <button type="button">Ver Mensajes</button>
             </a>
         </td>
+        <td>
+            <!-- Enlace para abrir el popup -->
+            <a href="#popup"><button type="button">Ver Detalles</button></a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<!-- Ventana emergente -->
+<div class="overlay" id="popup">
+    <div class="popup">
+        <h2>Detalles del Usuario</h2>
+        <p>Información adicional sobre el usuario.</p>
+        <a href="#"><button class="close-btn">Cerrar</button></a>
+    </div>
+</div>
+
 </body>
 </html>
