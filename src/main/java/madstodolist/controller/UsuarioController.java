@@ -117,4 +117,30 @@ public class UsuarioController {
 
         return "redirect:/usuarios/" + id + "/inicio"; // Redirigir a la página de inicio del usuario
     }
+
+    @PostMapping("/guardarDieta")
+    public String guardarDieta(@PathVariable Long id,
+                               @RequestParam String nombreDieta, Model model) {
+        Long idSesion = managerUserSession.personaLogeado();
+
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
+
+        Usuario usuario = usuarioService.buscarPorId(idSesion).orElse(null);
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Dieta nuevaDieta = new Dieta();
+        nuevaDieta.setNombre(nombreDieta);
+        nuevaDieta.setUsuario(usuario);
+
+        dietaService.guardarDieta(nuevaDieta);
+
+        model.addAttribute("dietas", dietaService.obtenerDietasPorUsuario(idSesion));
+        return "redirect:/usuarios/" + id + "/inicio";
+    }
+
+
 }
