@@ -23,4 +23,9 @@ public class DietaService {
     public List<Dieta> obtenerDietasPorUsuario(Long usuarioId) {
         return dietaRepository.findByUsuarioId(usuarioId);
     }
+
+    @Transactional
+    public void eliminarDietaPorId(Long dietaId) {
+        dietaRepository.deleteById(dietaId);
+    }
 }

@@ -44,7 +44,10 @@
             <td>
                 <button class="btn btn-success btn-sm">Marcar Favorito</button>
                 <button class="btn btn-success btn-sm">Modificar</button>
-                <button class="btn btn-danger btn-sm">Eliminar</button>
+                <form th:action="@{/usuarios/{id}/eliminarDieta/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                </form>
+
             </td>
         </tr>
         </tbody>

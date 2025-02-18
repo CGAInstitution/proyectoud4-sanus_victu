@@ -149,6 +149,20 @@ public class UsuarioController {
         return "redirect:/usuarios/" + id + "/inicio";
     }
 
+    @PostMapping("/eliminarDieta/{dietaId}")
+    public String eliminarDieta(@PathVariable Long id, @PathVariable Long dietaId) {
+        Long idSesion = managerUserSession.personaLogeado();
+
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
+
+        dietaService.eliminarDietaPorId(dietaId);
+
+        return "redirect:/usuarios/" + id + "/inicio";
+    }
+
+
 
 
 }
