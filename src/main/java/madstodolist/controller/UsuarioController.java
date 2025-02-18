@@ -122,13 +122,16 @@ public class UsuarioController {
     public String guardarDieta(@PathVariable Long id,
                                @RequestParam String nombreDieta, Model model) {
         Long idSesion = managerUserSession.personaLogeado();
+        System.out.println("ID de sesión: " + idSesion);
 
         if (idSesion == null || !idSesion.equals(id)) {
+            System.out.println("Sesión no válida o no coincide.");
             return "redirect:/login";
         }
 
         Usuario usuario = usuarioService.buscarPorId(idSesion).orElse(null);
         if (usuario == null) {
+            System.out.println("Usuario no encontrado.");
             return "redirect:/login";
         }
 
@@ -137,10 +140,12 @@ public class UsuarioController {
         nuevaDieta.setUsuario(usuario);
 
         dietaService.guardarDieta(nuevaDieta);
+        System.out.println("Dieta guardada: " + nuevaDieta.getNombre());
 
         model.addAttribute("dietas", dietaService.obtenerDietasPorUsuario(idSesion));
         return "redirect:/usuarios/" + id + "/inicio";
     }
+
 
 
 }
