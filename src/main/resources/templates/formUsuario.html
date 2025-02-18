@@ -52,20 +52,17 @@
     </table>
 </div>
 <!-- Ventana emergente -->
-<div class="overlay d-none" id="popup">
+<div class="overlay" id="popup" th:classappend="${!hasNutricionista} ? 'd-block' : 'd-none'">
     <div class="popup">
         <h2>Cambiar nutricionista</h2>
-        <select th:name="nutricionistas">
-            <option value="">Selecciona un nutricionista</option>
-            <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}"
-                    th:text="${nutricionista.nombre}"></option>
-        </select>
-        <a href="#">
-            <button id="delete" class="close-btn">Cerrar</button>
-        </a>
-        <a href="#">
-            <button class="close-btn">Guardar</button>
-        </a>
+        <form th:action="@{/usuarios/{id}/cambiarNutricionista(id=${idUsuario})}" method="post">
+            <select name="nutricionistaId">
+                <option value="">Selecciona un nutricionista</option>
+                <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}"
+                        th:text="${nutricionista.nombre}"></option>
+            </select>
+            <button type="submit" class="close-btn">Guardar</button>
+        </form>
     </div>
 </div>
 <div class="overlay" id="popup2">
@@ -76,17 +73,23 @@
                 <input type="text" id="nombreDieta" name="nombreDieta" placeholder="Escribe el nombre de tu dieta" required>
             </div>
 
-
             <!-- Botón para guardar -->
             <button class="close-btn" type="submit">Guardar</button>
         </form>
-        <a href="">
-            <button class="close-btn">Cerrar</button>
-        </a>
-
+        <button class="close-btn" onclick="closePopup2()">Cerrar</button>
     </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function closePopup() {
+        document.getElementById('popup').classList.add('d-none');
+    }
+    function closePopup2() {
+        document.getElementById('popup2').classList.add('d-none');
+    }
+</script>
+</body>
 </html>
