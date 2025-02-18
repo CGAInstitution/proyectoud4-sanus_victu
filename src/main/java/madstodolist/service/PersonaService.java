@@ -72,8 +72,6 @@ public class PersonaService {
         }
     }
 
-
-
     @Transactional
     public PersonaData findByEmail(String email) {
         Persona persona = personaRepository.findByCorreo(email).orElse(null);
