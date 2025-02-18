@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,33 +15,33 @@ import java.util.Set;
 @Profile("dev")
 public class DbH2Init {
 
-    private Set<Usuario> pacientes =new HashSet<>();
+    private Set<Usuario> pacientes = new HashSet<>();
+
     @Autowired
     private personaRepository personaRepository;
+
     @Autowired
     private ProductoService productoService;
+
     @Autowired
     private SupermercadoService supermercadoService;
 
-    // Se ejecuta tras crear el contexto de la aplicación
-// para inicializar la base de datos
+    // Se ejecuta tras crear el contexto de la aplicación para inicializar la base de datos
     @PostConstruct
     public void initDatabase() {
         // Creación del administrador con sus datos
         Administrador admin = new Administrador();
-// admin.setId(1L);  // Elimina esta línea
         admin.setNickName("admin");
         admin.setNombre("admin");
         admin.setContraseña("a");
         admin.setCorreo("a@a");
 
-// Creación de nutricionistas
+        // Creación de nutricionistas
         Nutricionista nutricionista1 = new Nutricionista();
         Nutricionista nutricionista2 = new Nutricionista();
 
-// Creación del primer usuario con sus datos
+        // Creación de usuarios
         Usuario usuario = new Usuario();
-// usuario.setId(4L);  // Elimina esta línea
         usuario.setNombre("usuario1");
         usuario.setContraseña("u");
         usuario.setCorreo("u@u");
@@ -51,9 +50,7 @@ public class DbH2Init {
         usuario.setSexo("Masculino");
         usuario.setEdad(25);
 
-// Creación del segundo usuario con sus datos
         Usuario usuario2 = new Usuario();
-// usuario2.setId(5L);  // Elimina esta línea
         usuario2.setNombre("usuario2");
         usuario2.setContraseña("u");
         usuario2.setCorreo("user2@teis.es");
@@ -62,9 +59,7 @@ public class DbH2Init {
         usuario2.setSexo("Masculino");
         usuario2.setEdad(25);
 
-// Creación del tercer usuario con sus datos
         Usuario usuario3 = new Usuario();
-// usuario3.setId(6L);  // Elimina esta línea
         usuario3.setNombre("usuario3");
         usuario3.setContraseña("u");
         usuario3.setCorreo("user3@teis.es");
@@ -73,8 +68,7 @@ public class DbH2Init {
         usuario3.setSexo("Masculino");
         usuario3.setEdad(25);
 
-// Configuración del primer nutricionista
-// nutricionista1.setId(2L);  // Elimina esta línea
+        // Asignación de nutricionistas a los usuarios
         nutricionista1.setNombre("nutricionista1");
         nutricionista1.setContraseña("n");
         nutricionista1.setCorreo("n@n");
@@ -82,8 +76,6 @@ public class DbH2Init {
         pacientes.add(usuario2);
         nutricionista1.setPacientes(pacientes);
 
-// Configuración del segundo nutricionista
-// nutricionista2.setId(3L);  // Elimina esta línea
         nutricionista2.setNombre("nutricionista2");
         nutricionista2.setContraseña("n");
         nutricionista2.setCorreo("correo2@teis.es");
