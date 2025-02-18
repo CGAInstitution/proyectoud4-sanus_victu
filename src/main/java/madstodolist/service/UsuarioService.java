@@ -71,12 +71,19 @@ public class UsuarioService {
         }
     }
 
+
     @Transactional
     public List<Usuario> obtenerUsuariosPorNutricionista(Long id_nutricionista) {
         // Buscar todos los usuarios asociados al nutricionista
         List<Usuario> usuarios = usre.findByNutricionistaId(id_nutricionista);
         return usuarios;
     }
+
+    @Transactional
+    public Usuario guardarUsuario(Usuario usuario) {
+        return usre.save(usuario);
+    }
+
 
 }
 
