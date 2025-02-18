@@ -1,8 +1,10 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.model.Nutricionista;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
+import madstodolist.model.Usuario;
 import madstodolist.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +54,24 @@ public class AdministracionController {
     @PostMapping("/listaUsuarios/eliminar/{userId}")
     public String eliminarUsuario(@PathVariable Long id, @PathVariable Long userId) {
         usuarioService.eliminar(userId);
+        return "redirect:/administracion/" + id + "/listaUsuarios";
+    }
+
+    @PostMapping("/cambiarNutricionista")
+    public String cambiarNutricionista(@PathVariable Long id,
+                                       @RequestParam Long usuarioId,
+                                       @RequestParam Long nutricionistaId) {
+        if (!validarAcceso(id)) return "redirect:/login";
+
+        Usuario usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+        if (usuario != null) {
+            Nutricionista nutricionista = nutricionistaService.buscarPorId(nutricionistaId).orElse(null);
+            if (nutricionista != null) {
+                usuario.setNutricionista(nutricionista);
+                usuarioService.guardarUsuario(usuario);
+            }
+        }
+
         return "redirect:/administracion/" + id + "/listaUsuarios";
     }
 

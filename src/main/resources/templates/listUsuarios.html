@@ -6,7 +6,7 @@
     <th:block th:replace="fragments.html :: head(titulo='ListaUsuarios')"></th:block>
     <title>Lista de Usuarios</title>
     <style>
-
+        /* Estilos adicionales */
     </style>
 </head>
 <body>
@@ -47,7 +47,7 @@
         </td>
         <td>
             <!-- Enlace para abrir el popup -->
-            <a href="#popup"><button type="button">Cambiar nutricionista</button></a>
+            <a href="#popup" th:attr="data-usuario-id=${usuario.id}"><button type="button">Cambiar nutricionista</button></a>
         </td>
     </tr>
     </tbody>
@@ -56,14 +56,35 @@
 <div class="overlay" id="popup">
     <div class="popup">
         <h2>Cambiar nutricionista</h2>
-        <select th:name="nutricionistas">
-            <option value="">Selecciona un nutricionista</option>
-            <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}" th:text="${nutricionista.nombre}"></option>
-        </select>
-        <a href="#"><button  class="close-btn">Cerrar</button></a>
-        <a href="#"><button class="close-btn">Guardar</button></a>
+        <form th:action="@{/administracion/{adminId}/cambiarNutricionista(adminId=${adminId})}" method="post">
+            <select name="nutricionistaId">
+                <option value="">Selecciona un nutricionista</option>
+                <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}" th:text="${nutricionista.nombre}"></option>
+            </select>
+            <input type="hidden" name="usuarioId" id="usuarioId">
+            <button type="submit" class="close-btn">Guardar</button>
+        </form>
+        <a href=""><button  class="close-btn">Cerrar</button></a>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function closePopup() {
+        document.getElementById('popup').classList.add('d-none');
+    }
+
+    document.querySelectorAll('a[href="#popup"]').forEach(function (element) {
+        element.addEventListener('click', function () {
+            var usuarioId = this.getAttribute('data-usuario-id');
+            document.getElementById('usuarioId').value = usuarioId;
+            document.getElementById('popup').classList.remove('d-none');
+        });
+    });
+</script>
 </body>
 </html>
+
+
