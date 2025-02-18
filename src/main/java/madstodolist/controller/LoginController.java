@@ -46,6 +46,30 @@ public class LoginController {
         return "formLogin";
     }
 
+//    @PostMapping("/login")
+//    public String loginSubmit(@ModelAttribute LoginData loginData, Model model, HttpSession session) {
+//        LoginResponse loginResponse = personaService.login(loginData.geteMail(), loginData.getPassword());
+//
+//        if (loginResponse.getStatus() == PersonaService.LoginStatus.LOGIN_OK) {
+//            PersonaData persona = personaService.findByEmail(loginData.geteMail());
+//            managerUserSession.logearPersona(persona.getId());
+//
+//            // Guardamos el tipo de usuario en la sesión
+//            session.setAttribute("tipoUsuario", personaService.findById(managerUserSession.personaLogeado()).getTipoPersona());
+//            session.setAttribute("idUsuario", persona.getId());
+//
+//            return "redirect:" + loginResponse.getRedirectUrl();
+//        }else{
+//            return "error";
+//        }
+//
+////        model.addAttribute("error", loginResponse.getStatus() == PersonaService.LoginStatus.USER_NOT_FOUND
+////                ? "No existe usuario"
+////                : "Contraseña incorrecta");
+////
+////        return "formLogin";
+//    }
+
     @PostMapping("/login")
     public String loginSubmit(@ModelAttribute LoginData loginData, Model model, HttpSession session) {
         LoginResponse loginResponse = personaService.login(loginData.geteMail(), loginData.getPassword());
@@ -59,14 +83,15 @@ public class LoginController {
             session.setAttribute("idUsuario", persona.getId());
 
             return "redirect:" + loginResponse.getRedirectUrl();
+        } else {
+            model.addAttribute("error", loginResponse.getStatus() == PersonaService.LoginStatus.USER_NOT_FOUND
+                    ? "No existe usuario"
+                    : "Contraseña incorrecta");
+
+            return "formLogin"; // Devuelve al formulario de inicio de sesión con el mensaje de error
         }
-
-        model.addAttribute("error", loginResponse.getStatus() == PersonaService.LoginStatus.USER_NOT_FOUND
-                ? "No existe usuario"
-                : "Contraseña incorrecta");
-
-        return "formLogin";
     }
+
 
     @GetMapping("/registro")
     public String registroForm(Model model) {
