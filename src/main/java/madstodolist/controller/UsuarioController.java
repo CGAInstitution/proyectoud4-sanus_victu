@@ -49,6 +49,9 @@ public class UsuarioController {
             model.addAttribute("idNutricionista", usuario.getNutricionista().getId());
         }
 
+        List<Dieta> dietas = dietaService.obtenerDietasPorUsuario(id);
+        model.addAttribute("dietas", dietas);
+
         model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
 
         return "formUsuario";
@@ -117,4 +120,35 @@ public class UsuarioController {
 
         return "redirect:/usuarios/" + id + "/inicio"; // Redirigir a la página de inicio del usuario
     }
+
+    @PostMapping("/guardarDieta")
+    public String guardarDieta(@PathVariable Long id,
+                               @RequestParam String nombreDieta, Model model) {
+        Long idSesion = managerUserSession.personaLogeado();
+        System.out.println("ID de sesión: " + idSesion);
+
+        if (idSesion == null || !idSesion.equals(id)) {
+            System.out.println("Sesión no válida o no coincide.");
+            return "redirect:/login";
+        }
+
+        Usuario usuario = usuarioService.buscarPorId(idSesion).orElse(null);
+        if (usuario == null) {
+            System.out.println("Usuario no encontrado.");
+            return "redirect:/login";
+        }
+
+        Dieta nuevaDieta = new Dieta();
+        nuevaDieta.setNombre(nombreDieta);
+        nuevaDieta.setUsuario(usuario);
+
+        dietaService.guardarDieta(nuevaDieta);
+        System.out.println("Dieta guardada: " + nuevaDieta.getNombre());
+
+        model.addAttribute("dietas", dietaService.obtenerDietasPorUsuario(idSesion));
+        return "redirect:/usuarios/" + id + "/inicio";
+    }
+
+
+
 }
