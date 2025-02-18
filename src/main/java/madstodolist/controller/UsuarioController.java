@@ -55,7 +55,6 @@ public class UsuarioController {
         if (idSesion == null || !idSesion.equals(id)) {
             return "redirect:/login";
         }
-
         model.addAttribute("supermercados", supermercadoService.obtenerTodosSupermercados());
         model.addAttribute("productos", productoService.obtenerTodosProductos());
         model.addAttribute("idUsuario", id);
@@ -63,7 +62,26 @@ public class UsuarioController {
         return "newDieta";
     }
 
-    @PostMapping("/guardar-dieta")
+//    @PostMapping("/guardar-dieta")
+//    public String guardarDieta(@PathVariable Long id, @ModelAttribute Dieta dieta) {
+//        Long idSesion = managerUserSession.personaLogeado();
+//        if (idSesion == null || !idSesion.equals(id)) {
+//            return "redirect:/login";
+//        }
+//
+//        // Asignar el ID del usuario al objeto Dieta si no está presente
+//        dieta.setId(id);
+//
+//        // Llamar al servicio para guardar la dieta
+//        dietaService.guardarDieta(dieta);
+//
+//        return "redirect:/newDieta";
+//    }
+
+
+
+
+    @PostMapping("/guardar-producto")
     public String guardarDieta(@PathVariable Long id,
                                @RequestParam(required = false) String nombreDieta,
                                @RequestParam(required = false) List<String> diasSeleccionados,
