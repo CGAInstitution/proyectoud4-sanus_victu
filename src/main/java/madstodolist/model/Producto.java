@@ -17,16 +17,16 @@ public class Producto implements Serializable {
     private String nombre;
 
     @Column(name = "valor_energetico", nullable = false)
-    private int valor_energetico;
+    private int valorEnergetico;
 
     @Column(name = "grasas", nullable = false)
     private float grasas;
 
     @Column(name = "hidratos_carbono", nullable = false)
-    private float hidratos_carbono;
+    private float hidratosCarbono;
 
     @Column(name = "fibra_alimentaria", nullable = false)
-    private float fibra_alimentaria;
+    private float fibraAlimentaria;
 
     @Column(name = "proteinas", nullable = false)
     private float proteinas;
@@ -34,11 +34,26 @@ public class Producto implements Serializable {
     @Column(name = "sal", nullable = false)
     private float sal;
 
-    @Column(name = "fecha", nullable = true)
-    private String fecha;
+    @ManyToMany(mappedBy = "productosLunes")
+    private Set<Dieta> dietasLunes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "productos")
-    private Set<Dieta> dietas = new HashSet<>();
+    @ManyToMany(mappedBy = "productosMartes")
+    private Set<Dieta> dietasMartes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "productosMiercoles")
+    private Set<Dieta> dietasMiercoles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "productosJueves")
+    private Set<Dieta> dietasJueves = new HashSet<>();
+
+    @ManyToMany(mappedBy = "productosViernes")
+    private Set<Dieta> dietasViernes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "productosSabado")
+    private Set<Dieta> dietasSabado = new HashSet<>();
+
+    @ManyToMany(mappedBy = "productosDomingo")
+    private Set<Dieta> dietasDomingo = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -48,39 +63,26 @@ public class Producto implements Serializable {
     )
     private Set<Supermercado> supermercados = new HashSet<>();
 
-    // Constructores
-    public Producto(Long id, String nombre, float grasas, int valor_energetico, float hidratos_carbono, float fibra_alimentaria, float proteinas, float sal, String fecha) {
-        this.id = id;
-        this.nombre = nombre;
-        this.grasas = grasas;
-        this.valor_energetico = valor_energetico;
-        this.hidratos_carbono = hidratos_carbono;
-        this.fibra_alimentaria = fibra_alimentaria;
-        this.proteinas = proteinas;
-        this.sal = sal;
-        this.fecha = fecha;
-    }
-
+    // Constructores, getters y setters
     public Producto() {}
 
-    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public int getValor_energetico() { return valor_energetico; }
-    public void setValor_energetico(int valor_energetico) { this.valor_energetico = valor_energetico; }
-
-    public float getHidratos_carbono() { return hidratos_carbono; }
-    public void setHidratos_carbono(float hidratos_carbono) { this.hidratos_carbono = hidratos_carbono; }
+    public int getValorEnergetico() { return valorEnergetico; }
+    public void setValorEnergetico(int valorEnergetico) { this.valorEnergetico = valorEnergetico; }
 
     public float getGrasas() { return grasas; }
     public void setGrasas(float grasas) { this.grasas = grasas; }
 
-    public float getFibra_alimentaria() { return fibra_alimentaria; }
-    public void setFibra_alimentaria(float fibra_alimentaria) { this.fibra_alimentaria = fibra_alimentaria; }
+    public float getHidratosCarbono() { return hidratosCarbono; }
+    public void setHidratosCarbono(float hidratosCarbono) { this.hidratosCarbono = hidratosCarbono; }
+
+    public float getFibraAlimentaria() { return fibraAlimentaria; }
+    public void setFibraAlimentaria(float fibraAlimentaria) { this.fibraAlimentaria = fibraAlimentaria; }
 
     public float getProteinas() { return proteinas; }
     public void setProteinas(float proteinas) { this.proteinas = proteinas; }
@@ -88,8 +90,26 @@ public class Producto implements Serializable {
     public float getSal() { return sal; }
     public void setSal(float sal) { this.sal = sal; }
 
-    public Set<Dieta> getDietas() { return dietas; }
-    public void setDietas(Set<Dieta> dietas) { this.dietas = dietas; }
+    public Set<Dieta> getDietasLunes() { return dietasLunes; }
+    public void setDietasLunes(Set<Dieta> dietasLunes) { this.dietasLunes = dietasLunes; }
+
+    public Set<Dieta> getDietasMartes() { return dietasMartes; }
+    public void setDietasMartes(Set<Dieta> dietasMartes) { this.dietasMartes = dietasMartes; }
+
+    public Set<Dieta> getDietasMiercoles() { return dietasMiercoles; }
+    public void setDietasMiercoles(Set<Dieta> dietasMiercoles) { this.dietasMiercoles = dietasMiercoles; }
+
+    public Set<Dieta> getDietasJueves() { return dietasJueves; }
+    public void setDietasJueves(Set<Dieta> dietasJueves) { this.dietasJueves = dietasJueves; }
+
+    public Set<Dieta> getDietasViernes() { return dietasViernes; }
+    public void setDietasViernes(Set<Dieta> dietasViernes) { this.dietasViernes = dietasViernes; }
+
+    public Set<Dieta> getDietasSabado() { return dietasSabado; }
+    public void setDietasSabado(Set<Dieta> dietasSabado) { this.dietasSabado = dietasSabado; }
+
+    public Set<Dieta> getDietasDomingo() { return dietasDomingo; }
+    public void setDietasDomingo(Set<Dieta> dietasDomingo) { this.dietasDomingo = dietasDomingo; }
 
     public Set<Supermercado> getSupermercados() { return supermercados; }
     public void setSupermercados(Set<Supermercado> supermercados) { this.supermercados = supermercados; }

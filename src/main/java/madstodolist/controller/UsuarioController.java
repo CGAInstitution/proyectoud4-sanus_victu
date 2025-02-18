@@ -1,24 +1,16 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-
-import madstodolist.model.Nutricionista;
-import madstodolist.model.Producto;
-import madstodolist.model.Supermercado;
-import madstodolist.model.Usuario;
-import madstodolist.service.NutricionistaService;
-import madstodolist.service.ProductoService;
-import madstodolist.service.SupermercadoService;
-import madstodolist.service.UsuarioService;
+import madstodolist.model.*;
+import madstodolist.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuarios/{id}")
@@ -34,51 +26,67 @@ public class UsuarioController {
     private NutricionistaService nutricionistaService;
     @Autowired
     private SupermercadoService supermercadoService;
+    @Autowired
+    private DietaService dietaService;
 
     @GetMapping("/inicio")
     public String loginForm(@PathVariable Long id, Model model) {
         Long idSesion = managerUserSession.personaLogeado();
 
         if (idSesion == null || !idSesion.equals(id)) {
-            return "redirect:/login"; // Redirigir si el usuario no está autenticado o intenta acceder a otro perfil
+            return "redirect:/login";
         }
 
         Usuario usuario = usuarioService.buscarPorId(id).orElse(null);
         if (usuario == null) {
-            return "redirect:/login"; // Si el usuario no existe, redirigir al login
+            return "redirect:/login";
         }
 
-        Long idNutricionista = usuario.getNutricionista().getId();
         model.addAttribute("idUsuario", id);
-        model.addAttribute("idNutricionista", idNutricionista);
-
-        List<Nutricionista> nutricionistas = nutricionistaService.obtenerTodos();
-        model.addAttribute("nutricionistas", nutricionistas);
+        model.addAttribute("idNutricionista", usuario.getNutricionista().getId());
+        model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
 
         return "formUsuario";
     }
 
     @GetMapping("/newDieta")
     public String mostrarNuevaDieta(@PathVariable Long id, Model model) {
-        List<Supermercado> supermercados = supermercadoService.obtenerTodosSupermercados();
-        List<Producto> productos = productoService.obtenerTodosProductos(); // Obtener todos los productos
+        Long idSesion = managerUserSession.personaLogeado();
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
 
-        model.addAttribute("supermercados", supermercados);
-        model.addAttribute("productos", productos); // Agregar la lista de productos al modelo
+        model.addAttribute("supermercados", supermercadoService.obtenerTodosSupermercados());
+        model.addAttribute("productos", productoService.obtenerTodosProductos());
+        model.addAttribute("idUsuario", id);
 
+        return "newDieta";
+    }
+
+    @PostMapping("/guardar-dieta")
+    public String guardarDieta(@PathVariable Long id,
+                               @RequestParam(required = false) String nombreDieta,
+                               @RequestParam(required = false) List<String> diasSeleccionados,
+                               @RequestParam(required = false) List<Long> productosSeleccionados,
+                               Model model) {
         Long idSesion = managerUserSession.personaLogeado();
 
         if (idSesion == null || !idSesion.equals(id)) {
-            return "redirect:/login"; // Bloquear acceso si el usuario no está autenticado o intenta cambiar el ID
+            return "redirect:/login";
         }
 
-        model.addAttribute("idUsuario", id);
-        return "newDieta";
-    }
+        // Comprobación de selección de días y productos
+        if (diasSeleccionados == null || diasSeleccionados.isEmpty()) {
+            model.addAttribute("error", "Debe seleccionar al menos un día de la semana.");
+            return "newDieta"; // Redirigir de vuelta a la vista newDieta
+        }
 
-    @PostMapping("/newDieta/añadirProducto")
-    public String registrarProducto(@PathVariable Long id, Model model) {
-        return "newDieta";
-    }
+        if (productosSeleccionados == null || productosSeleccionados.isEmpty()) {
+            model.addAttribute("error", "Debe seleccionar al menos un producto.");
+            return "newDieta"; // Redirigir de vuelta a la vista newDieta
+        }
 
+
+        return "redirect:/usuarios/" + id + "/inicio"; // Redirigir a la página de inicio del usuario
+    }
 }
