@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DietaService {
@@ -27,5 +28,10 @@ public class DietaService {
     @Transactional
     public void eliminarDietaPorId(Long dietaId) {
         dietaRepository.deleteById(dietaId);
+    }
+
+    @Transactional
+    public Optional<Dieta> buscarPorId(Long dietaId) {
+        return dietaRepository.findById(dietaId);
     }
 }

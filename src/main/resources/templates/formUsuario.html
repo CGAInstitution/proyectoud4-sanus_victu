@@ -30,57 +30,40 @@
         <tr>
             <th>Nombre de la Dieta</th>
             <th>Favorito</th>
-            <th>Detalles</th>
             <th>Acciones</th>
         </tr>
         </thead>
-        <tbody id="listaDietas">
-        <tr th:each="dieta : ${dietas}">
+        <tbody id="listaDietas" th:each="dieta : ${dietas}">
+        <tr>
             <td th:text="${dieta.nombre}"></td>
             <td><span th:text="${dieta.favorito ? '✅' : '❌'}"></span></td>
             <td>
-                <button class="btn btn-info btn-sm">Detalles</button>
-            </td>
-            <td>
-                <button class="btn btn-success btn-sm">Marcar Favorito</button>
+                <form th:action="@{/usuarios/{id}/toggleFavorito/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="post" style="display:inline;">
+                    <button class="btn btn-success btn-sm" type="submit">Marcar Favorito</button>
+                </form>
                 <button class="btn btn-success btn-sm">Modificar</button>
                 <form th:action="@{/usuarios/{id}/eliminarDieta/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="post" style="display:inline;">
                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                 </form>
-
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<!-- Ventana emergente -->
-<div class="overlay" id="popup" th:classappend="${!hasNutricionista} ? 'd-block' : 'd-none'">
-    <div class="popup">
-        <h2>Cambiar nutricionista</h2>
-        <form th:action="@{/usuarios/{id}/cambiarNutricionista(id=${idUsuario})}" method="post">
-            <select name="nutricionistaId">
-                <option value="">Selecciona un nutricionista</option>
-                <option th:each="nutricionista : ${nutricionistas}" th:value="${nutricionista.id}" th:text="${nutricionista.nombre}"></option>
-            </select>
-            <button type="submit" class="close-btn">Guardar</button>
-        </form>
-    </div>
-</div>
 
+<!-- Ventana emergente -->
 <div class="overlay" id="popup2">
     <div class="popup2">
-        <form th:action="@{/usuarios/{id}/guardarDieta(id=${idUsuario})}" method="post">
+        <form method="post" th:action="@{/usuarios/{id}/guardarDieta(id=${idUsuario})}">
             <div class="nombre-dieta">
                 <label for="nombreDieta">Nombre de la Dieta: </label>
                 <input type="text" id="nombreDieta" name="nombreDieta" placeholder="Escribe el nombre de tu dieta" required>
             </div>
-            <!-- Botón para guardar -->
             <button class="close-btn" type="submit">Guardar</button>
         </form>
         <a href=""><button id="delete" class="close-btn">Cerrar</button></a>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

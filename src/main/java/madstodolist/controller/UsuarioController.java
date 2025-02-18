@@ -162,6 +162,24 @@ public class UsuarioController {
         return "redirect:/usuarios/" + id + "/inicio";
     }
 
+    @PostMapping("/toggleFavorito/{dietaId}")
+    public String toggleFavorito(@PathVariable Long id, @PathVariable Long dietaId) {
+        Long idSesion = managerUserSession.personaLogeado();
+
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
+
+        Dieta dieta = dietaService.buscarPorId(dietaId).orElse(null);
+        if (dieta != null) {
+            dieta.setFavorito(!dieta.isFavorito()); // Alternar el valor de favorito
+            dietaService.guardarDieta(dieta);
+        }
+
+        return "redirect:/usuarios/" + id + "/inicio";
+    }
+
+
 
 
 
