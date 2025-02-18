@@ -49,6 +49,9 @@ public class UsuarioController {
             model.addAttribute("idNutricionista", usuario.getNutricionista().getId());
         }
 
+        List<Dieta> dietas = dietaService.obtenerDietasPorUsuario(id);
+        model.addAttribute("dietas", dietas);
+
         model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
 
         return "formUsuario";
