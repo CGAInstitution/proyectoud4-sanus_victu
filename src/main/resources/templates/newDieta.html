@@ -5,15 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <th:block th:replace="fragments.html :: head(titulo='ListaProductos')"></th:block>
   <title>Tabla de Productos para Dieta</title>
+  <style>
+    .overlay {
+      display: none; /* Ocultar por defecto */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .popup {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 <div th:replace="__header :: body"></div>
-<form action="/guardar-dieta" method="post">
+<form action="/usuarios/{id}/guardar-dieta" method="post">
   <div class="container">
     <h2>Plan de Dieta Semanal</h2>
     <div class="nombre-dieta">
       <label for="nombreDieta">Nombre de la Dieta: </label>
-      <input type="text" id="nombreDieta" name="nombreDieta" placeholder="Escribe el nombre de tu dieta">
+      <input type="text" id="nombreDieta" name="nombreDieta" placeholder="Escribe el nombre de tu dieta" required>
     </div>
     <table>
       <thead>
@@ -28,7 +47,6 @@
       </tr>
       </thead>
       <tbody>
-      <!-- Celdas vacías, los productos se agregarán en el servidor cuando se seleccionen -->
       <tr th:each="producto : ${productosSeleccionados}">
         <td th:text="${producto.nombre}"></td>
         <td th:text="${producto.nombre}"></td>
@@ -40,7 +58,6 @@
       </tr>
       </tbody>
     </table>
-
     <button type="submit">Guardar Dieta</button>
   </div>
 </form>
@@ -57,12 +74,15 @@
 
 <!-- Lista de productos seleccionables -->
 <div>
-
-  <select th:name="supermercadoId">
+  <select th:name="supermercadoId" required>
     <option value="">Selecciona un supermercado</option>
     <option th:each="supermercado : ${supermercados}" th:value="${supermercado.id}" th:text="${supermercado.nombre}"></option>
   </select>
-
+</div>
+<div>
+  <form th:action="@{/usuarios/{id}/guardar-dieta(id=${idUsuario})}" method="post">
+    <button type="submit">Añadir Productos</button>
+  </form>
 </div>
 <div class="productos-lista">
   <h3>Selecciona los productos</h3>
@@ -72,15 +92,31 @@
       <span th:text="${producto.nombre}"></span>
     </li>
   </ul>
-  <button type="submit">Guardar cambios</button>
-  <button type="submit">Vaciar tabla</button>
 </div>
+
 <!-- Ventana emergente -->
 <div class="overlay" id="popup">
   <div class="popup">
-    <h2>Error, debe seleccionar productos y dias para poder guardar un producto</h2>
+    <h2>Error, debe seleccionar productos y días para poder guardar una dieta.</h2>
     <a href="#"><button id="delete" class="close-btn">Cerrar</button></a>
   </div>
 </div>
+
+<script>
+  document.querySelector("form").onsubmit = function(event) {
+    const diasSeleccionados = document.querySelectorAll('input[name="diasSeleccionados"]:checked');
+    const productosSeleccionados = document.querySelectorAll('input[name="productosSeleccionados"]:checked');
+
+    if (diasSeleccionados.length === 0 || productosSeleccionados.length === 0) {
+      event.preventDefault(); // Evita el envío del formulario
+      document.getElementById('popup').style.display = 'flex'; // Muestra la ventana emergente
+    }
+  };
+
+  // Cerrar la ventana emergente
+  document.getElementById('delete').onclick = function() {
+    document.getElementById('popup').style.display = 'none';
+  };
+</script>
 </body>
 </html>

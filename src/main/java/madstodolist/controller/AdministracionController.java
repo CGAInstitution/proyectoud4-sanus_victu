@@ -103,4 +103,5 @@ public class AdministracionController {
         initDbService.initDatabase();
         return "redirect:/administracion/" + id + "/panel";
     }
+
 }

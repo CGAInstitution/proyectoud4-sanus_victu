@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -69,4 +70,10 @@ public class ProductoService {
     public void guardarProductos(List<Producto> productos) {
        productoRepository.saveAll(productos);
     }
+
+    @Transactional
+    public List<Producto> obtenerProductosPorIds(List<Long> ids) {
+        return productoRepository.findAllById(ids);
+    }
+
 }

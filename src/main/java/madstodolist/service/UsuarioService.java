@@ -20,7 +20,7 @@ public class UsuarioService {
     @Autowired
     private usuarioRepository usre;
     @Autowired
-    private madstodolist.repository.personaRepository personaRepository;
+    private personaRepository personaRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -77,5 +77,6 @@ public class UsuarioService {
         List<Usuario> usuarios = usre.findByNutricionistaId(id_nutricionista);
         return usuarios;
     }
+
 }
 
