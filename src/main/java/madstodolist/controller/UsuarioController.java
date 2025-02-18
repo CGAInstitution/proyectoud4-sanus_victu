@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuarios/{id}")
@@ -43,7 +41,14 @@ public class UsuarioController {
         }
 
         model.addAttribute("idUsuario", id);
-        model.addAttribute("idNutricionista", usuario.getNutricionista().getId());
+
+        if (usuario.getNutricionista() == null) {
+            model.addAttribute("hasNutricionista", false);
+        } else {
+            model.addAttribute("hasNutricionista", true);
+            model.addAttribute("idNutricionista", usuario.getNutricionista().getId());
+        }
+
         model.addAttribute("nutricionistas", nutricionistaService.obtenerTodos());
 
         return "formUsuario";
@@ -62,24 +67,28 @@ public class UsuarioController {
         return "newDieta";
     }
 
-//    @PostMapping("/guardar-dieta")
-//    public String guardarDieta(@PathVariable Long id, @ModelAttribute Dieta dieta) {
-//        Long idSesion = managerUserSession.personaLogeado();
-//        if (idSesion == null || !idSesion.equals(id)) {
-//            return "redirect:/login";
-//        }
-//
-//        // Asignar el ID del usuario al objeto Dieta si no está presente
-//        dieta.setId(id);
-//
-//        // Llamar al servicio para guardar la dieta
-//        dietaService.guardarDieta(dieta);
-//
-//        return "redirect:/newDieta";
-//    }
+    @PostMapping("/cambiarNutricionista")
+    public String cambiarNutricionista(@PathVariable Long id,
+                                       @RequestParam Long nutricionistaId) {
+        Long idSesion = managerUserSession.personaLogeado();
 
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
 
+        Usuario usuario = usuarioService.buscarPorId(id).orElse(null);
+        if (usuario == null) {
+            return "redirect:/login";
+        }
 
+        Nutricionista nutricionista = nutricionistaService.buscarPorId(nutricionistaId).orElse(null);
+        if (nutricionista != null) {
+            usuario.setNutricionista(nutricionista);
+            usuarioService.guardarUsuario(usuario);
+        }
+
+        return "redirect:/usuarios/" + id + "/inicio";
+    }
 
     @PostMapping("/guardar-producto")
     public String guardarDieta(@PathVariable Long id,
@@ -104,6 +113,7 @@ public class UsuarioController {
             return "newDieta"; // Redirigir de vuelta a la vista newDieta
         }
 
+        // Lógica para guardar la dieta...
 
         return "redirect:/usuarios/" + id + "/inicio"; // Redirigir a la página de inicio del usuario
     }
