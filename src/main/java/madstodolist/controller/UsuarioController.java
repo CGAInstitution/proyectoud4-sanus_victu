@@ -179,6 +179,27 @@ public class UsuarioController {
         return "redirect:/usuarios/" + id + "/inicio";
     }
 
+    @GetMapping("/editarDieta/{dietaId}")
+    public String editarDieta(@PathVariable Long id, @PathVariable Long dietaId, Model model) {
+        Long idSesion = managerUserSession.personaLogeado();
+
+        if (idSesion == null || !idSesion.equals(id)) {
+            return "redirect:/login";
+        }
+
+        Dieta dieta = dietaService.buscarPorId(dietaId).orElse(null);
+        if (dieta == null) {
+            return "redirect:/usuarios/" + id + "/inicio";
+        }
+
+        model.addAttribute("dieta", dieta);
+        model.addAttribute("productos", productoService.obtenerTodosProductos());
+        model.addAttribute("supermercados", supermercadoService.obtenerTodosSupermercados());
+        return "newDieta"; // Asegúrate de que este nombre de plantilla es correcto
+    }
+
+
+
 
 
 

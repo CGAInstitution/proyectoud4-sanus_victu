@@ -41,7 +41,9 @@
                 <form th:action="@{/usuarios/{id}/toggleFavorito/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="post" style="display:inline;">
                     <button class="btn btn-success btn-sm" type="submit">Marcar Favorito</button>
                 </form>
-                <button class="btn btn-success btn-sm">Modificar</button>
+                <form th:action="@{/usuarios/{id}/editarDieta/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="get" style="display:inline;">
+                    <button class="btn btn-success btn-sm" type="submit">Modificar</button>
+                </form>
                 <form th:action="@{/usuarios/{id}/eliminarDieta/{dietaId}(id=${idUsuario}, dietaId=${dieta.id})}" method="post" style="display:inline;">
                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                 </form>
