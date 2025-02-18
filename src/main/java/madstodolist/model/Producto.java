@@ -3,6 +3,7 @@ package madstodolist.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -113,4 +114,20 @@ public class Producto implements Serializable {
 
     public Set<Supermercado> getSupermercados() { return supermercados; }
     public void setSupermercados(Set<Supermercado> supermercados) { this.supermercados = supermercados; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return Objects.equals(id, producto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
+
+
+

@@ -35,18 +35,19 @@
     <tr th:each="producto : ${productos}">
         <td th:text="${producto.id}"></td>
         <td th:text="${producto.nombre}"></td>
-        <td th:text="${producto.valor_energetico}"></td>
+        <td th:text="${producto.valorEnergetico}"></td>
         <td th:text="${producto.grasas}"></td>
-        <td th:text="${producto.hidratos_carbono}"></td>
-        <td th:text="${producto.fibra_alimentaria}"></td>
+        <td th:text="${producto.hidratosCarbono}"></td>
+        <td th:text="${producto.fibraAlimentaria}"></td>
         <td th:text="${producto.proteinas}"></td>
         <td th:text="${producto.sal}"></td>
         <td>
-            <a th:href="@{/producto/editar/{id}(id=${producto.id})}">
+            <a th:href="@{/administracion/{id}/registrarProducto/modificar/{productoId}(id=${adminId}, productoId=${producto.id})}">
                 <button type="button">Modificar</button>
             </a>
-            <form th:action="@{/producto/borrar/{id}(id=${producto.id})}" method="post">
-                <button type="submit" >Borrar</button>
+            <form th:action="@{/administracion/{id}/listaProductos/eliminar/{productoId}(id=${adminId}, productoId=${producto.id})}"
+                  method="post">
+                <button type="submit">Borrar</button>
             </form>
         </td>
     </tr>

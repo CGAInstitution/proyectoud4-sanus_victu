@@ -76,4 +76,63 @@ public class ProductoService {
         return productoRepository.findAllById(ids);
     }
 
+    @Transactional
+    public Producto mapearProducto(ProductoData productoData) {
+        return modelMapper.map(productoData, Producto.class);
+    }
+
+    @Transactional
+    public Optional<Producto> obtenerProductoPorNombre(String nombre) {
+        return productoRepository.findByNombre(nombre);
+    }
+
+    @Transactional
+    public void borrarProducto(Long id) {
+        productoRepository.delete(productoRepository.findById(id).get());
+    }
+
+    @Transactional
+    public Optional<Producto> obtenerProductoById(Long id) {
+        return productoRepository.findById(id);
+    }
+
+    @Transactional
+    public void actualizarProducto(Long id, ProductoData productoData) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+
+        producto.setNombre(productoData.getNombre());
+        producto.setValorEnergetico(productoData.getValorEnergetico());
+        producto.setGrasas(productoData.getGrasas());
+        producto.setHidratosCarbono(productoData.getHidratosCarbono());
+        producto.setFibraAlimentaria(productoData.getFibraAlimentaria());
+        producto.setProteinas(productoData.getProteinas());
+        producto.setSal(productoData.getSal());
+
+        productoRepository.save(producto);
+    }
+
+    @Transactional
+    public ProductoData obtenerProductoPorId(Long id) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        return convertirAProductoData(producto);
+    }
+
+    private ProductoData convertirAProductoData(Producto producto) {
+        return new ProductoData(
+                producto.getId(),
+                producto.getNombre(),
+                producto.getValorEnergetico(),
+                producto.getGrasas(),
+                producto.getHidratosCarbono(),
+                producto.getFibraAlimentaria(),
+                producto.getProteinas(),
+                producto.getSal(),
+                producto.getSupermercados().stream()
+                        .map(Supermercado::getNombre) // Extrae solo los nombres de los supermercados
+                        .collect(Collectors.toList())
+        );
+    }
 }

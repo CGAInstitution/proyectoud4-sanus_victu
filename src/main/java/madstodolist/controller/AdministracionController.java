@@ -1,15 +1,19 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.dto.ProductoData;
 import madstodolist.model.Producto;
 import madstodolist.model.Supermercado;
 import madstodolist.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/administracion/{id}")
@@ -72,6 +76,7 @@ public class AdministracionController {
 
     @GetMapping("/listaProductos")
     public String listarProductos(@PathVariable Long id, Model model) {
+        if (!validarAcceso(id)) return "redirect:/login";
         List<Producto> productos = productoService.obtenerTodosProductos();
         List<Supermercado> supermercados = supermercadoService.obtenerTodosSupermercados();
         model.addAttribute("supermercados", supermercados);
@@ -82,18 +87,62 @@ public class AdministracionController {
 
     @GetMapping("/registrarProducto")
     public String mostrarFormularioRegistroProducto(@PathVariable Long id, Model model) {
-        model.addAttribute("producto", new Producto());
+        if (!validarAcceso(id)) return "redirect:/login";
+
+        model.addAttribute("producto", new Producto()); // Asegura que el producto esté vacío
         model.addAttribute("adminId", id);
         return "formProducto";
     }
 
-    @PostMapping("/registrarProducto")
-    public String registrarProducto(@PathVariable Long id, @ModelAttribute Producto producto, Model model,
-                                    @RequestParam String nombre, @RequestParam float valor_energetico,
-                                    @RequestParam float grasas, @RequestParam float hidratos_carbono,
-                                    @RequestParam float fibra_alimentaria, @RequestParam float proteinas,
-                                    @RequestParam float sal ) {
-        productoService.guardarProducto(producto);
+
+    @PostMapping("/listaProductos/eliminar/{productoId}")
+    public String eliminarProducto(@PathVariable Long id, @PathVariable Long productoId) {
+        productoService.borrarProducto(productoId);
+        return "redirect:/administracion/" + id + "/listaProductos";
+    }
+
+    @GetMapping("/registrarProducto/modificar/{productoId}")
+    public String irModificarProducto(@PathVariable Long id, @PathVariable Long productoId, Model model) {
+        if (!validarAcceso(id)) return "redirect:/login";
+
+        Optional<Producto> productoOpt = productoService.obtenerProductoById(productoId);
+        if (!productoOpt.isPresent()) {
+            return "redirect:/administracion/" + id + "/listaProductos"; // Redirige si el producto no existe
+        }
+
+        model.addAttribute("producto", productoOpt.get());
+        model.addAttribute("adminId", id);
+        return "formProducto";
+    }
+
+
+
+
+    @PostMapping("/registrarProducto/modificar/{productoId}")
+    public String modificarProducto(@PathVariable Long id, @PathVariable Long productoId, @Valid ProductoData productoData, BindingResult result, Model model) {
+        if (!validarAcceso(id)) return "redirect:/login";
+
+        if (result.hasErrors()) {
+            model.addAttribute("producto", productoData);
+            return "formProducto";
+        }
+
+        productoService.actualizarProducto(productoId, productoData);
+        return "redirect:/administracion/" + id + "/listaProductos";
+    }
+
+
+    @PostMapping("/registrarProducto/nuevoProducto")
+    public String registrarProducto(@Valid ProductoData productoData, @PathVariable Long id, BindingResult result, Model model ) {
+        if (result.hasErrors()) {
+            return "formProducto";
+        }
+
+        if (productoService.obtenerProductoPorNombre(productoData.getNombre()).isPresent()) {
+            return "formProducto"; // Si el producto ya existe, no lo guardamos
+        }
+
+        productoService.guardarProducto(productoService.mapearProducto(productoData));
         return "redirect:/administracion/" + id + "/listaProductos";
     }
 
@@ -103,5 +152,6 @@ public class AdministracionController {
         initDbService.initDatabase();
         return "redirect:/administracion/" + id + "/panel";
     }
+
 
 }
